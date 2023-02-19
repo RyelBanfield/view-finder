@@ -1,13 +1,44 @@
-import "./styles";
+import "./src/styles";
+import "react-native-url-polyfill/auto";
 
-import { Text, View } from "react-native";
+import { Session } from "@supabase/supabase-js";
+import { StatusBar } from "expo-status-bar";
+import React, { useEffect, useState } from "react";
 
-export default function App() {
+import { supabase } from "./src/lib/supabase";
+import AuthStack from "./src/navigation/AuthStack";
+import UserStack from "./src/navigation/UserStack";
+
+const App = () => {
+  const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    void supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return null;
+  }
+
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-lg">
-        Open up App.tsx to start working on your app!
-      </Text>
-    </View>
+    <>
+      <StatusBar style="auto" />
+      {session && session.user ? (
+        <UserStack session={session} />
+      ) : (
+        <AuthStack />
+      )}
+    </>
   );
-}
+};
+
+export default App;
