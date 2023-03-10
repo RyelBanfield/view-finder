@@ -3,7 +3,7 @@ import "react-native-url-polyfill/auto";
 
 import { Session } from "@supabase/supabase-js";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { supabase } from "./src/lib/supabase";
 import AuthStack from "./src/navigation/AuthStack";
@@ -25,9 +25,7 @@ const App = () => {
     });
   }, []);
 
-  if (loading) {
-    return null;
-  }
+  if (loading) return null;
 
   return (
     <>

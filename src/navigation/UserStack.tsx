@@ -17,7 +17,6 @@ type SessionProps = {
   session: Session;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 const Tab = createBottomTabNavigator<TabParamList>();
 const Stack = createNativeStackNavigator<UserStackParamList>();
 

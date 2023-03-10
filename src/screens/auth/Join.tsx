@@ -1,6 +1,6 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
-import { Alert, Pressable, Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 
 import { supabase } from "../../lib/supabase";
 import { AuthStackParamList } from "../../navigation/AuthStack";
@@ -12,20 +12,32 @@ const Join = ({ navigation }: Props) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const signUpWithEmail = async () => {
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
-      options: {
-        data: {
-          full_name: fullName,
-          username: username,
-        },
-      },
     });
 
-    if (error) Alert.alert(error.message);
+    if (error) {
+      setError(error.message);
+      return;
+    }
+
+    const userID = data.user?.id as string;
+
+    await addAdditionalData(userID);
+  };
+
+  const addAdditionalData = async (userID: string) => {
+    const { error } = await supabase.from("profiles").upsert({
+      id: userID,
+      full_name: fullName,
+      username: username,
+    });
+
+    if (error) setError(error.message);
   };
 
   return (
@@ -33,7 +45,7 @@ const Join = ({ navigation }: Props) => {
       <Text className="mb-6 text-3xl font-bold">Join ViewFinder</Text>
       <View className="w-full flex-col">
         <TextInput
-          placeholder="Name"
+          placeholder="Full Name"
           onChangeText={setFullName}
           value={fullName}
           className="mb-3 rounded-md border-2 border-neutral-300 p-2 focus:border-neutral-500 focus:outline-none"
@@ -57,6 +69,11 @@ const Join = ({ navigation }: Props) => {
           value={password}
           className="mb-3 rounded-md border-2 border-neutral-300 p-2 focus:border-neutral-500 focus:outline-none"
         />
+        {error && (
+          <Text className="mb-2 text-center text-xs font-semibold text-red-500">
+            {error}
+          </Text>
+        )}
         <Pressable
           onPress={() => void signUpWithEmail()}
           className="mb-3 rounded-md border-2 border-neutral-300 bg-black p-2"

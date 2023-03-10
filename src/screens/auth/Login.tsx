@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
-import { Alert, Pressable, Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 
 import { supabase } from "../../lib/supabase";
 import { AuthStackParamList } from "../../navigation/AuthStack";
@@ -10,6 +10,7 @@ type Props = NativeStackScreenProps<AuthStackParamList, "Login">;
 const Login = ({ navigation }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const signInWithEmail = async () => {
     const { error } = await supabase.auth.signInWithPassword({
@@ -17,7 +18,7 @@ const Login = ({ navigation }: Props) => {
       password: password,
     });
 
-    if (error) Alert.alert(error.message);
+    if (error) setError(error.message);
   };
 
   return (
@@ -38,6 +39,11 @@ const Login = ({ navigation }: Props) => {
           value={password}
           className="mb-2 rounded-md border-2 border-neutral-200 p-2 focus:border-neutral-500 focus:outline-none"
         />
+        {error && (
+          <Text className="mb-2 text-center text-xs font-semibold text-red-500">
+            {error}
+          </Text>
+        )}
         <Pressable
           onPress={() => void signInWithEmail()}
           className="mb-2 rounded-md border-2 border-neutral-200 bg-black p-2"
