@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../../../supabase";
 import { AuthStackParamList } from "../../navigation/AuthStack";
 
 type Props = NativeStackScreenProps<AuthStackParamList, "Login">;

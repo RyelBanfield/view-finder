@@ -1,11 +1,12 @@
+import { Button, Input } from "@rneui/themed";
 import { Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
-import { Button, Input } from "react-native-elements";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { supabase } from "../lib/supabase";
+import { supabase } from "../../supabase";
 
-export default function Account({ session }: { session: Session }) {
+const Feed = ({ session }: { session: Session }) => {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
@@ -74,15 +75,15 @@ export default function Account({ session }: { session: Session }) {
   }
 
   return (
-    <View>
+    <SafeAreaView>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input label="Email" value={session?.user?.email} disabled />
       </View>
       <View style={styles.verticallySpaced}>
         <Input
           label="Username"
-          value={username || ""}
-          onChangeText={(text) => setUsername(text)}
+          value={username}
+          onChangeText={(text: string) => setUsername(text)}
         />
       </View>
 
@@ -99,9 +100,9 @@ export default function Account({ session }: { session: Session }) {
       <View style={styles.verticallySpaced}>
         <Button title="Sign Out" onPress={() => void supabase.auth.signOut()} />
       </View>
-    </View>
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -117,3 +118,5 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
+export default Feed;

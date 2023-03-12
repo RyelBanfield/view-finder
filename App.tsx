@@ -5,9 +5,9 @@ import { Session } from "@supabase/supabase-js";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 
-import { supabase } from "./src/lib/supabase";
 import AuthStack from "./src/navigation/AuthStack";
 import UserStack from "./src/navigation/UserStack";
+import { supabase } from "./supabase";
 
 const App = () => {
   const [session, setSession] = useState<Session | null>(null);
@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       {session && session.user ? (
         <UserStack session={session} />
       ) : (
