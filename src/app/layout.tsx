@@ -1,20 +1,27 @@
-import type { Metadata } from "next";
 import "./globals.css";
+
 import { GeistSans } from "geist/font/sans";
+import type { Metadata } from "next";
+
+import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "View Finder",
-  description: "Find your view.",
+  description:
+    "Explore stunning photography and connect with professional photographers.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <html lang="en" className="antialiased">
-      <body className={GeistSans.className}>{children}</body>
+    <html lang="en" className="scroll-smooth">
+      <body
+        className={`${GeistSans.className} mx-auto flex min-h-screen flex-col antialiased`}
+      >
+        <main className="flex grow flex-col py-3">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
