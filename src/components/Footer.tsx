@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { BiLogoInstagram } from "react-icons/bi";
 
@@ -48,8 +49,15 @@ export const Footer = (props: FooterProps) => {
         <div className="grid grid-cols-1 items-center justify-center justify-items-center gap-x-[4vw] gap-y-12 pb-12 md:pb-18 lg:grid-cols-[0.25fr_1fr_0.25fr] lg:justify-between lg:gap-y-4 lg:pb-20">
           <Link
             href={logo.url as string}
-            className="text-lg font-bold tracking-tighter lg:justify-self-start"
+            className="flex items-center gap-1 text-lg font-bold tracking-tighter lg:justify-self-start"
           >
+            <Image
+              src={logo.src}
+              alt={logo.alt as string}
+              width={256}
+              height={256}
+              className="h-7 w-7"
+            />
             ViewFinder
           </Link>
 
@@ -103,8 +111,8 @@ export const Footer = (props: FooterProps) => {
 export const FooterDefaults: FooterProps = {
   logo: {
     url: "/",
-    src: "https://relume-assets.s3.amazonaws.com/logo-image.svg",
-    alt: "Logo image",
+    src: "/logos/logo-base-256x256.png",
+    alt: "View Finder Logo",
   },
   columnLinks: [
     {

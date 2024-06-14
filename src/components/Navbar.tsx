@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { RxChevronDown } from "react-icons/rx";
@@ -75,8 +76,15 @@ export const Navbar = (props: NavbarProps) => {
         <div className="flex min-h-16 items-center justify-between px-[5%] py-[1%] md:min-h-18 lg:min-h-full lg:px-0">
           <Link
             href={logo.url as string}
-            className="text-lg font-bold tracking-tighter"
+            className="flex items-center gap-1 text-2xl font-bold tracking-tighter"
           >
+            <Image
+              src={logo.src}
+              alt={logo.alt as string}
+              width={256}
+              height={256}
+              className="h-7 w-7"
+            />
             ViewFinder
           </Link>
 
@@ -238,8 +246,8 @@ const SubMenu = ({
 export const NavbarDefaults: NavbarProps = {
   logo: {
     url: "/",
-    src: "https://relume-assets.s3.amazonaws.com/logo-image.svg",
-    alt: "Logo image",
+    src: "/logos/logo-base-256x256.png",
+    alt: "View Finder Logo",
   },
   navLinks: [
     {
