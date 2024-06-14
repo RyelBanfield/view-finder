@@ -1,11 +1,12 @@
-const Login = () => {
-  return (
-    <>
-      <div className="flex grow flex-col items-center justify-center">
-        Come back soon!
-      </div>
-    </>
-  );
+import { redirect } from "next/navigation";
+
+import { checkIfLoggedIn } from "./actions";
+import LoginForm from "./LoginForm";
+
+const LoginPage = async () => {
+  (await checkIfLoggedIn()) && redirect("/");
+
+  return <LoginForm />;
 };
 
-export default Login;
+export default LoginPage;

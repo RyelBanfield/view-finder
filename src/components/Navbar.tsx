@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { RxChevronDown } from "react-icons/rx";
 
+import { createClient } from "@/utils/supabase/client";
+
 import { Button, ButtonProps } from "./ui/button";
 
 type ImageProps = {
@@ -33,8 +35,10 @@ export type NavbarProps = React.ComponentPropsWithoutRef<"section"> &
   Partial<Props>;
 
 export const Navbar = (props: NavbarProps) => {
+  const supabase = createClient();
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { logo, navLinks, buttons } = { ...NavbarDefaults, ...props } as Props;
 
   useEffect(() => {
@@ -51,6 +55,19 @@ export const Navbar = (props: NavbarProps) => {
       document.body.classList.remove("overflow-hidden");
     }
   }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { error } = await supabase.auth.getUser();
+      if (error) {
+        return;
+      } else {
+        setIsLoggedIn(true);
+      }
+    };
+
+    getUser();
+  }, [supabase.auth]);
 
   return (
     <nav className="border-border-primary bg-background-primary flex w-full items-center border-b lg:min-h-18 lg:px-[5%]">
@@ -127,6 +144,25 @@ export const Navbar = (props: NavbarProps) => {
                 )}
               </Button>
             ))}
+
+            {!isLoggedIn && (
+              <Button size={"sm"} className="w-full" asChild>
+                <Link href="/login">Log in</Link>
+              </Button>
+            )}
+
+            {isLoggedIn && (
+              <Button
+                size={"sm"}
+                className="w-full"
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  window.location.reload();
+                }}
+              >
+                Log out
+              </Button>
+            )}
           </div>
         </motion.div>
       </div>
@@ -211,10 +247,7 @@ export const NavbarDefaults: NavbarProps = {
       url: "/explore",
     },
   ],
-  buttons: [
-    { title: "Log in", variant: "ghost", href: "/login" },
-    { title: "Sign up", href: "/sign-up" },
-  ],
+  buttons: [],
 };
 
 const topLineVariants = {
