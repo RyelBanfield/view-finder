@@ -42,12 +42,14 @@ const LoginForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto flex w-96 grow flex-col justify-center gap-5 py-12"
+        className="mx-auto flex max-w-sm grow flex-col justify-center gap-6 px-6 py-24"
       >
         <h1 className="text-center text-3xl font-bold">Login</h1>
+
         <p className="text-center text-sm">
           If you don&apos;t have an account, one will be created for you.
         </p>
+
         <FormField
           control={form.control}
           name="email"
@@ -55,23 +57,22 @@ const LoginForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="contact@viewfinder.cam" {...field} />
+                <Input placeholder="name@mail.com" {...field} />
               </FormControl>
               <FormDescription>We will send you a magic link.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
+
         <Button type="submit">Login</Button>
       </form>
     </Form>
   ) : (
-    <div className="flex grow flex-col items-center justify-center gap-5 py-12">
+    <div className="flex grow flex-col items-center justify-center gap-6 py-24">
       <h1 className="text-center text-3xl font-bold">Magic Link Sent!</h1>
-      <p className="text-center text-sm">
-        Check your email for a magic link. <br /> If you don&apos;t see it,
-        check your spam folder.
-      </p>
+
+      <p className="text-center text-sm">Check your email for a magic link.</p>
     </div>
   );
 };

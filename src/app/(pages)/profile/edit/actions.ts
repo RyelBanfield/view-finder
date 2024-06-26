@@ -5,8 +5,6 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 
 export const updateUsername = async (id: string, username: string) => {
-  console.log(username);
-
   const supabase = createClient();
 
   const { error } = await supabase
@@ -16,5 +14,5 @@ export const updateUsername = async (id: string, username: string) => {
 
   if (error) console.error(error);
 
-  redirect("/");
+  redirect("/profile");
 };

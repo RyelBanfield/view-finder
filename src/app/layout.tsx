@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 
 import { Footer } from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "View Finder",
@@ -14,10 +15,9 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="en" className="scroll-smooth">
-      <body
-        className={`${GeistSans.className} mx-auto flex min-h-screen flex-col antialiased`}
-      >
-        <main className="flex grow flex-col py-3">{children}</main>
+      <body className={`${GeistSans.className} antialiased`}>
+        <Navbar />
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
