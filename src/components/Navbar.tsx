@@ -1,278 +1,144 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { Pivot as Hamburger } from "hamburger-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { RxChevronDown } from "react-icons/rx";
 
-import { createClient } from "@/utils/supabase/client";
+import Logo from "../../public/logos/logo-base-1200x1200.png";
 
-import { Button, ButtonProps } from "./ui/button";
-
-type ImageProps = {
-  url?: string;
-  src: string;
-  alt?: string;
-};
-
-type NavLink = {
-  url: string;
-  title: string;
-  subMenuLinks?: NavLink[];
-};
-
-interface ExtendedButtonProps extends ButtonProps {
-  href?: string;
-}
-
-type Props = {
-  logo: ImageProps;
-  navLinks: NavLink[];
-  buttons: ExtendedButtonProps[];
-};
-
-export type NavbarProps = React.ComponentPropsWithoutRef<"section"> &
-  Partial<Props>;
-
-export const Navbar = (props: NavbarProps) => {
-  const supabase = createClient();
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { logo, navLinks, buttons } = { ...NavbarDefaults, ...props } as Props;
+const Navbar = () => {
+  const [isOpen, setOpen] = useState(true);
+  const [hamburgerPos, setHamburgerPos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 992);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("overflow-hidden");
-    }
-  }, [isMobileMenuOpen]);
-
-  useEffect(() => {
-    const getUser = async () => {
-      const { error } = await supabase.auth.getUser();
-      if (error) {
-        return;
-      } else {
-        setIsLoggedIn(true);
+    const handleResize = () => {
+      const hamburger = document.getElementById("hamburger-icon");
+      if (hamburger) {
+        const rect = hamburger.getBoundingClientRect();
+        setHamburgerPos({ x: rect.x, y: rect.y });
       }
     };
 
-    getUser();
-  }, [supabase.auth]);
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+
+  const mobileMenu = {
+    closed: {
+      clipPath: `circle(0px at ${hamburgerPos.x + 24}px ${hamburgerPos.y + 24}px)`,
+      transition: {
+        duration: 0.6,
+      },
+    },
+    open: (height = 1000) => ({
+      clipPath: `circle(${height * 2 + 200}px at ${hamburgerPos.x}px ${hamburgerPos.y}px)`,
+      transition: {
+        duration: 1.2,
+      },
+    }),
+  };
+
+  const navigationList = {
+    open: {
+      transition: { staggerChildren: 0.1, delayChildren: 0.3 },
+    },
+    closed: {
+      transition: { staggerChildren: 0.1, staggerDirection: -1 },
+    },
+  };
+
+  const menuItem = {
+    open: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        y: { stiffness: 1000, velocity: -100 },
+      },
+    },
+    closed: {
+      y: 50,
+      opacity: 0,
+      transition: {
+        y: { stiffness: 1000 },
+      },
+    },
+  };
 
   return (
-    <nav className="border-border-primary bg-background-primary flex w-full items-center border-b lg:min-h-18 lg:px-[5%]">
-      <div className="size-full lg:flex lg:items-center lg:justify-between">
-        <div className="flex min-h-16 items-center justify-between px-[5%] py-[1%] md:min-h-18 lg:min-h-full lg:px-0">
-          <Link
-            href={logo.url as string}
-            className="flex items-center gap-1 text-2xl font-bold tracking-tighter"
-          >
-            <Image
-              src={logo.src}
-              alt={logo.alt as string}
-              width={256}
-              height={256}
-              className="h-7 w-7"
-            />
-            ViewFinder
-          </Link>
+    <nav className="relative flex w-full items-center justify-between p-5">
+      <div className="flex items-center gap-1">
+        <Image src={Logo} alt="View Finder Logo" className="h-5 w-5" />
+        <Link href={"/"} className="font-bold">
+          View Finder
+        </Link>
+      </div>
 
-          <button
-            className="-mr-2 flex size-12 flex-col items-center justify-center lg:hidden"
-            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-          >
-            <motion.span
-              className="my-[3px] h-0.5 w-6 bg-black"
-              animate={isMobileMenuOpen ? ["open", "rotatePhase"] : "closed"}
-              variants={topLineVariants}
-            />
-            <motion.span
-              className="my-[3px] h-0.5 w-6 bg-black"
-              animate={isMobileMenuOpen ? "open" : "closed"}
-              variants={middleLineVariants}
-            />
-            <motion.span
-              className="my-[3px] h-0.5 w-6 bg-black"
-              animate={isMobileMenuOpen ? ["open", "rotatePhase"] : "closed"}
-              variants={bottomLineVariants}
-            />
-          </button>
-        </div>
-
-        <motion.div
-          variants={{
-            open: { height: "var(--height-open, 100dvh)" },
-            close: { height: "var(--height-closed, 0)" },
-          }}
-          initial="close"
-          exit="close"
-          animate={isMobileMenuOpen ? "open" : "close"}
-          transition={{ duration: 0.4 }}
-          className="overflow-hidden px-[5%] lg:flex lg:items-center lg:px-0 lg:[--height-closed:auto] lg:[--height-open:auto]"
+      <motion.div
+        initial={false}
+        animate={isOpen ? "open" : "closed"}
+        variants={mobileMenu}
+        className="absolute inset-0 z-10 h-screen w-screen bg-neutral-900"
+      >
+        <motion.ul
+          variants={navigationList}
+          className="flex h-full flex-col items-center justify-center gap-5"
         >
-          {navLinks.map((navLink, index) => (
-            <div key={index} className="first:pt-4 lg:first:pt-0">
-              {navLink.subMenuLinks && navLink.subMenuLinks.length > 0 ? (
-                <SubMenu navLink={navLink} isMobile={isMobile} />
-              ) : (
-                <Link
-                  href={navLink.url}
-                  className="block py-3 text-md focus-visible:outline-none lg:px-4 lg:py-2 lg:text-base"
-                >
-                  {navLink.title}
-                </Link>
-              )}
-            </div>
-          ))}
+          <motion.li
+            variants={menuItem}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setOpen(false)}
+          >
+            <Link href="/" className="text-lg text-neutral-300">
+              Home
+            </Link>
+          </motion.li>
 
-          <div className="mt-6 flex flex-col items-center gap-4 lg:ml-4 lg:mt-0 lg:flex-row">
-            {buttons.map((button, index) => (
-              <Button
-                key={index}
-                variant={button.variant}
-                size="sm"
-                className="w-full"
-                asChild
-              >
-                {button.href ? (
-                  <Link href={button.href}>{button.title}</Link>
-                ) : (
-                  button.title
-                )}
-              </Button>
-            ))}
+          <motion.li
+            variants={menuItem}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setOpen(false)}
+          >
+            <Link href="/explore" className="text-lg text-neutral-300">
+              Explore
+            </Link>
+          </motion.li>
 
-            {!isLoggedIn && (
-              <Button size={"sm"} className="w-full" asChild>
-                <Link href="/login">Log in</Link>
-              </Button>
-            )}
+          <motion.li
+            variants={menuItem}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setOpen(false)}
+          >
+            <Link href="/profile" className="text-lg text-neutral-300">
+              Profile
+            </Link>
+          </motion.li>
+        </motion.ul>
+      </motion.div>
 
-            {isLoggedIn && (
-              <Button
-                size={"sm"}
-                className="w-full"
-                onClick={async () => {
-                  await supabase.auth.signOut();
-                  window.location.reload();
-                }}
-              >
-                Log out
-              </Button>
-            )}
-          </div>
-        </motion.div>
+      <div id="hamburger-icon" className="z-20 rounded-full bg-white/80">
+        <Hamburger size={20} toggled={isOpen} toggle={setOpen} />
       </div>
     </nav>
   );
 };
 
-const SubMenu = ({
-  navLink,
-  isMobile,
-}: {
-  navLink: NavLink;
-  isMobile: boolean;
-}) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
-
-  return (
-    <div
-      onMouseEnter={() => !isMobile && setIsDropdownOpen(true)}
-      onMouseLeave={() => !isMobile && setIsDropdownOpen(false)}
-    >
-      <button
-        className="flex w-full items-center justify-between gap-2 py-3 text-left text-md focus-visible:outline-none lg:flex-none lg:justify-start lg:px-4 lg:py-2 lg:text-base"
-        onClick={toggleDropdown}
-      >
-        <span>{navLink.title}</span>
-        <motion.span
-          variants={{ rotated: { rotate: 180 }, initial: { rotate: 0 } }}
-          animate={isDropdownOpen ? "rotated" : "initial"}
-          transition={{ duration: 0.3 }}
-        >
-          <RxChevronDown />
-        </motion.span>
-      </button>
-      <AnimatePresence>
-        {isDropdownOpen && (
-          <motion.nav
-            variants={{
-              open: {
-                visibility: "visible",
-                opacity: "var(--opacity-open, 100%)",
-                y: 0,
-              },
-              close: {
-                visibility: "hidden",
-                opacity: "var(--opacity-close, 0)",
-                y: "var(--y-close, 0%)",
-              },
-            }}
-            animate={isDropdownOpen ? "open" : "close"}
-            initial="close"
-            exit="close"
-            transition={{ duration: 0.2 }}
-            className="bg-background-primary lg:border-border-primary lg:absolute lg:z-50 lg:border lg:p-2 lg:[--y-close:25%]"
-          >
-            {navLink.subMenuLinks?.map((subNavLink, index) => (
-              <a
-                key={index}
-                href={subNavLink.url}
-                className="block py-3 pl-[5%] text-md focus-visible:outline-none lg:px-4 lg:py-2 lg:text-base"
-              >
-                {subNavLink.title}
-              </a>
-            ))}
-          </motion.nav>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
-
-export const NavbarDefaults: NavbarProps = {
-  logo: {
-    url: "/",
-    src: "/logos/logo-base-256x256.png",
-    alt: "View Finder Logo",
-  },
-  navLinks: [
-    {
-      title: "Explore",
-      url: "/explore",
-    },
-  ],
-  buttons: [],
-};
-
-const topLineVariants = {
-  open: { translateY: 8, transition: { delay: 0.1 } },
-  rotatePhase: { rotate: -45, transition: { delay: 0.2 } },
-  closed: { translateY: 0, rotate: 0, transition: { duration: 0.2 } },
-};
-
-const middleLineVariants = {
-  open: { width: 0, transition: { duration: 0.1 } },
-  closed: { width: "1.5rem", transition: { delay: 0.3, duration: 0.2 } },
-};
-
-const bottomLineVariants = {
-  open: { translateY: -8, transition: { delay: 0.1 } },
-  rotatePhase: { rotate: 45, transition: { delay: 0.2 } },
-  closed: { translateY: 0, rotate: 0, transition: { duration: 0.2 } },
-};
-
-Navbar.displayName = "Navbar";
+export default Navbar;
