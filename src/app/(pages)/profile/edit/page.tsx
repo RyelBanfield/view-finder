@@ -1,9 +1,13 @@
-import { checkAndReturnUserProfile } from "@/app/actions";
+import { redirect } from "next/navigation";
+
+import { fetchUserProfileAction } from "@/app/actions";
 
 import EditProfileForm from "./EditProfileForm";
 
 const EditProfilePage = async () => {
-  const userProfile = await checkAndReturnUserProfile();
+  const userProfile = await fetchUserProfileAction();
+
+  if (!userProfile) redirect("/login");
 
   return <EditProfileForm userProfile={userProfile} />;
 };
