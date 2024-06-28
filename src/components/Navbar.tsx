@@ -6,11 +6,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { fetchUserAuthAction } from "@/app/actions";
+
 import Logo from "../../public/logos/logo-base-1200x1200.png";
 
 const Navbar = () => {
-  const [isOpen, setOpen] = useState(true);
+  const [isOpen, setOpen] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [hamburgerPos, setHamburgerPos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const checkUserLoggedIn = async () => {
+      const userFromAuth = await fetchUserAuthAction();
+
+      if (userFromAuth) {
+        setIsUserLoggedIn(true);
+      } else {
+        setIsUserLoggedIn(false);
+      }
+    };
+
+    checkUserLoggedIn();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -122,15 +139,38 @@ const Navbar = () => {
             </Link>
           </motion.li>
 
-          <motion.li
-            variants={menuItem}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setOpen(false)}
-          >
-            <Link href="/profile" className="text-lg text-neutral-300">
-              Profile
-            </Link>
-          </motion.li>
+          {isUserLoggedIn ? (
+            <>
+              <motion.li
+                variants={menuItem}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setOpen(false)}
+              >
+                <Link href="/profile" className="text-lg text-neutral-300">
+                  Profile
+                </Link>
+              </motion.li>
+              <motion.li
+                variants={menuItem}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setOpen(false)}
+              >
+                <Link href="/profile/edit" className="text-lg text-neutral-300">
+                  Edit Profile
+                </Link>
+              </motion.li>
+            </>
+          ) : (
+            <motion.li
+              variants={menuItem}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setOpen(false)}
+            >
+              <Link href="/login" className="text-lg text-neutral-300">
+                Login
+              </Link>
+            </motion.li>
+          )}
         </motion.ul>
       </motion.div>
 

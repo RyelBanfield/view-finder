@@ -1,10 +1,13 @@
 import { redirect } from "next/navigation";
 
-import { checkIfLoggedIn } from "./actions";
+import { fetchUserAuthAction } from "@/app/actions";
+
 import LoginForm from "./LoginForm";
 
 const LoginPage = async () => {
-  (await checkIfLoggedIn()) && redirect("/");
+  const userFromAuth = await fetchUserAuthAction();
+
+  if (userFromAuth) redirect("/");
 
   return <LoginForm />;
 };

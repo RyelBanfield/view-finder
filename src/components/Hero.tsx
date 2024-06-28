@@ -32,7 +32,7 @@ export const Hero = (props: HeroProps) => {
   } as Props;
 
   return (
-    <header className="px-[5%] py-16 md:py-24 lg:py-28">
+    <header className="px-[5%] py-12 md:py-24 lg:py-28">
       <div className="container flex flex-col items-center">
         <div className="mb-12 max-w-lg text-center md:mb-18 lg:mb-20">
           <h1 className="mb-5 text-balance text-6xl font-bold md:mb-6 md:text-9xl lg:text-10xl">
