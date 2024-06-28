@@ -1,3 +1,14 @@
 {
-  "cSpell.words": ["cloudinary", "clsx", "hookform", "uidotdev", "usehooks"]
+  "cSpell.words": [
+    "cloudinary",
+    "clsx",
+    "gentypes",
+    "hookform",
+    "lucide",
+    "tailwindcss",
+    "typegen",
+    "uidotdev",
+    "usehooks"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
