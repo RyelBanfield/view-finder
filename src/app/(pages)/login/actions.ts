@@ -2,16 +2,7 @@
 
 import { createClient } from "@/utils/supabase/server";
 
-export const checkIfLoggedIn = async () => {
-  const supabase = createClient();
-
-  const { error } = await supabase.auth.getUser();
-
-  if (error) return false;
-  return true;
-};
-
-export const loginWithEmail = async (email: string) => {
+export const loginWithEmailAction = async (email: string) => {
   const supabase = createClient();
 
   await supabase.auth.signInWithOtp({

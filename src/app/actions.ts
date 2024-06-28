@@ -1,29 +1,37 @@
 "use server";
 
-import { redirect } from "next/navigation";
-
 import { createClient } from "@/utils/supabase/server";
 
-export const checkAndReturnUserProfile = async () => {
+export const fetchUserAuthAction = async () => {
   const supabase = createClient();
 
-  const { data: auth, error: authError } = await supabase.auth.getUser();
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error) {
+    console.error(error.message);
+    return null;
+  }
+
+  return data.user;
+};
+
+export const fetchUserProfileAction = async () => {
+  const supabase = createClient();
+
+  const { data: userAuth, error: authError } = await supabase.auth.getUser();
 
   if (authError) {
-    console.error(authError);
-    redirect("/");
+    console.error(authError.message);
+    return null;
   }
 
-  const { data: userProfile, error: errorProfile } = await supabase
+  const { data: userProfile, error: profileError } = await supabase
     .from("users")
     .select("*")
-    .eq("id", auth.user.id)
+    .eq("id", userAuth.user.id)
     .single();
 
-  if (errorProfile) {
-    console.error(errorProfile);
-    redirect("/");
-  }
+  if (profileError) throw new Error(profileError.message);
 
   return userProfile;
 };
