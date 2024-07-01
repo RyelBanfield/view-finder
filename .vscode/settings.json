@@ -6,10 +6,12 @@
     "hookform",
     "lucide",
     "postcss",
+    "sonner",
     "tailwindcss",
     "typegen",
     "uidotdev",
-    "usehooks"
+    "usehooks",
+    "vaul"
   ],
   "typescript.tsdk": "node_modules/typescript/lib"
 }
