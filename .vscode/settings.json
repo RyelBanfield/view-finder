@@ -5,6 +5,7 @@
     "gentypes",
     "hookform",
     "lucide",
+    "postcss",
     "tailwindcss",
     "typegen",
     "uidotdev",
