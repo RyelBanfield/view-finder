@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 
-import { fetchUserProfileAction } from "@/app/actions";
+import { fetchProfileAction } from "@/app/actions";
 
 const Explore = async () => {
-  const userProfile = await fetchUserProfileAction();
+  const userProfile = await fetchProfileAction();
 
   if (userProfile) {
     if (!userProfile.first_name || !userProfile.username)

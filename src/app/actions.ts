@@ -15,7 +15,7 @@ export const fetchUserAuthAction = async () => {
   return data.user;
 };
 
-export const fetchUserProfileAction = async () => {
+export const fetchProfileAction = async () => {
   const supabase = createClient();
 
   const { data: userAuth, error: authError } = await supabase.auth.getUser();

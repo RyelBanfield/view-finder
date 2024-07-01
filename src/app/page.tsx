@@ -3,10 +3,10 @@ import { redirect } from "next/navigation";
 import { AboutUs } from "@/components/AboutUs";
 import { Hero } from "@/components/Hero";
 
-import { fetchUserProfileAction } from "./actions";
+import { fetchProfileAction } from "./actions";
 
 const Home = async () => {
-  const userProfile = await fetchUserProfileAction();
+  const userProfile = await fetchProfileAction();
 
   if (userProfile) {
     if (!userProfile.first_name || !userProfile.username)
