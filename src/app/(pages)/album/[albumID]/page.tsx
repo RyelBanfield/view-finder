@@ -12,9 +12,14 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
   if (!album) return notFound();
 
   return (
-    <div>
-      Album: {album.name}
-      {user && user.id === album.user_id && <DeleteButton albumID={album.id} />}
+    <div className="flex flex-col gap-6 px-5 py-12">
+      <div className="flex justify-between">
+        <h1 className="text-4xl font-bold tracking-tighter">{album.name}</h1>
+
+        {user && user.id === album.user_id && (
+          <DeleteButton albumID={album.id} />
+        )}
+      </div>
     </div>
   );
 };
