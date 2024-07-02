@@ -26,8 +26,8 @@ const DeleteButton = ({ albumID }: { albumID: string }) => {
     <>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button size={"icon"} variant={"outline"}>
-            <BiSolidTrash />
+          <Button size={"sm"} variant={"outline"}>
+            Delete Album
           </Button>
         </AlertDialogTrigger>
 
