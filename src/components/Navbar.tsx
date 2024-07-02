@@ -104,7 +104,7 @@ const Navbar = () => {
     <nav className="relative flex w-full items-center justify-between p-5">
       <div className="flex items-center gap-1">
         <Image src={Logo} alt="View Finder Logo" className="h-5 w-5" />
-        <Link href={"/"} className="font-bold">
+        <Link href={"/"} className="font-bold tracking-tighter">
           View Finder
         </Link>
       </div>
@@ -148,15 +148,6 @@ const Navbar = () => {
               >
                 <Link href="/profile" className="text-lg text-neutral-300">
                   Profile
-                </Link>
-              </motion.li>
-              <motion.li
-                variants={menuItem}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setOpen(false)}
-              >
-                <Link href="/profile/edit" className="text-lg text-neutral-300">
-                  Edit Profile
                 </Link>
               </motion.li>
             </>
