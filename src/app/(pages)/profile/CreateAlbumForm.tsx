@@ -50,51 +50,47 @@ const CreateAlbumForm = () => {
   };
 
   return (
-    <>
-      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetTrigger asChild>
-          <Button size={"sm"} variant={"outline"}>
-            Create Album
-          </Button>
-        </SheetTrigger>
+    <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+      <SheetTrigger asChild>
+        <Button size={"sm"}>Create Album</Button>
+      </SheetTrigger>
 
-        <SheetContent side={"bottom"}>
-          <SheetHeader>
-            <SheetTitle>Create a new album</SheetTitle>
+      <SheetContent side={"bottom"}>
+        <SheetHeader>
+          <SheetTitle>Create a new album</SheetTitle>
 
-            <SheetDescription>
-              This creates a new album on your profile. You can add photos to
-              this album later.
-            </SheetDescription>
-          </SheetHeader>
+          <SheetDescription>
+            This creates a new album on your profile. You can add photos to this
+            album later.
+          </SheetDescription>
+        </SheetHeader>
 
-          <br />
+        <br />
 
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Album Name</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormDescription>This is public.</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Album Name</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormDescription>This is public.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-              <Button size={"sm"} type="submit">
-                Save album name
-              </Button>
-            </form>
-          </Form>
-        </SheetContent>
-      </Sheet>
-    </>
+            <Button size={"sm"} type="submit">
+              Save album name
+            </Button>
+          </form>
+        </Form>
+      </SheetContent>
+    </Sheet>
   );
 };
 
