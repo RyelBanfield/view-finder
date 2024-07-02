@@ -35,10 +35,17 @@ export const createAlbumAction = async (name: string) => {
 
   if (error) throw new Error(error.message);
 
-  const { error: insertError } = await supabase.from("albums").insert({
-    user_id: data.user.id,
-    name,
-  });
+  const { data: album, error: insertError } = await supabase
+    .from("albums")
+    .insert({
+      user_id: data.user.id,
+      name,
+    })
+    .select()
+    .single();
 
   if (insertError) throw new Error(insertError.message);
+
+  revalidatePath("/", "layout");
+  redirect(`/album/${album.id}`);
 };
