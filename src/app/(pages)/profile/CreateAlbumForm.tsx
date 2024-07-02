@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -32,7 +31,6 @@ const formSchema = z.object({
 });
 
 const CreateAlbumForm = () => {
-  const router = useRouter();
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,9 +42,6 @@ const CreateAlbumForm = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     await createAlbumAction(values.name);
-    form.reset();
-    setSheetOpen(false);
-    router.refresh();
   };
 
   return (
