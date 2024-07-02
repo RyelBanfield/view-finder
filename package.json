@@ -15,7 +15,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.6.0",
+    "@hookform/resolvers": "^3.7.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-checkbox": "^1.1.1",
@@ -27,8 +27,8 @@
     "@radix-ui/react-switch": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
     "@relume_io/relume-tailwind": "^0.3.0",
-    "@supabase/ssr": "^0.3.0",
-    "@supabase/supabase-js": "^2.43.4",
+    "@supabase/ssr": "^0.4.0",
+    "@supabase/supabase-js": "^2.44.2",
     "class-variance-authority": "^0.7.0",
     "cloudinary": "^2.2.0",
     "clsx": "^2.1.1",
@@ -41,7 +41,7 @@
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-hook-form": "^7.52.0",
+    "react-hook-form": "^7.52.1",
     "react-icons": "^5.2.1",
     "sharp": "^0.33.4",
     "sonner": "^1.5.0",
@@ -56,11 +56,11 @@
     "@types/react-dom": "^18.3.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.4",
-    "eslint-plugin-simple-import-sort": "^12.1.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "postcss": "^8.4.39",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwindcss": "^3.4.4",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.3"
   }
 }
