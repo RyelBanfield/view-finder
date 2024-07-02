@@ -1,5 +1,7 @@
 "use client";
 
+import { BiSolidTrash } from "react-icons/bi";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,7 +26,9 @@ const DeleteButton = ({ albumID }: { albumID: string }) => {
     <>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button size={"sm"}>Delete Album</Button>
+          <Button size={"icon"} variant={"outline"}>
+            <BiSolidTrash />
+          </Button>
         </AlertDialogTrigger>
 
         <AlertDialogContent>
