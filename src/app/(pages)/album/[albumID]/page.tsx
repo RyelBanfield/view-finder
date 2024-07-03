@@ -30,7 +30,7 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
         )}
       </div>
 
-      <UploadButton />
+      {user && user.id === album.user_id && <UploadButton albumID={album.id} />}
     </div>
   );
 };
