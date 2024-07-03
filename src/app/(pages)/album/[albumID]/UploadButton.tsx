@@ -8,6 +8,7 @@ import Compressor from "@uppy/compressor";
 import Uppy from "@uppy/core";
 import { Dashboard } from "@uppy/react";
 import Tus from "@uppy/tus";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -22,7 +23,10 @@ import {
 } from "@/components/ui/sheet";
 import { createClient } from "@/utils/supabase/client";
 
+import { insertPhotosAction } from "./actions";
+
 const UploadButton = ({ albumID }: { albumID: string }) => {
+  const router = useRouter();
   const supabase = createClient();
 
   const [session, setSession] = useState<Session | null>(null);
@@ -33,7 +37,7 @@ const UploadButton = ({ albumID }: { albumID: string }) => {
       .getSession()
       .then(({ data }) => data.session);
     getSession.then((session) => setSession(session));
-  }, []);
+  }, [supabase.auth]);
 
   const uppy = new Uppy()
     .use(Tus, {
@@ -63,11 +67,14 @@ const UploadButton = ({ albumID }: { albumID: string }) => {
     };
   });
 
-  uppy.on("complete", (result) => {
-    console.log(
-      "Upload complete! We’ve uploaded these files:",
-      result.successful,
-    );
+  uppy.on("complete", async (result) => {
+    const uploadedPhotos = result.successful.map((file) => ({
+      user_id: session!.user.id,
+      album_id: albumID,
+      file_path: file.meta.objectName as string,
+    }));
+
+    await insertPhotosAction(uploadedPhotos);
   });
 
   return (
@@ -95,6 +102,7 @@ const UploadButton = ({ albumID }: { albumID: string }) => {
           proudlyDisplayPoweredByUppy={false}
           doneButtonHandler={async () => {
             setSheetOpen(false);
+            router.refresh();
           }}
         />
       </SheetContent>
