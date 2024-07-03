@@ -35,3 +35,36 @@ export const deleteAlbumAction = async (albumID: string) => {
   revalidatePath("/", "layout");
   redirect("/profile");
 };
+
+export const insertPhotosAction = async (
+  uploadedPhotos: {
+    user_id: string;
+    album_id: string;
+    file_path: string;
+  }[],
+) => {
+  const supabase = createClient();
+
+  const { error } = await supabase.from("photos").insert(uploadedPhotos);
+
+  if (error) {
+    console.error(error);
+    return error;
+  }
+};
+
+export const fetchPhotosAction = async (albumID: string) => {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("photos")
+    .select("*")
+    .eq("album_id", albumID);
+
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  return data;
+};
