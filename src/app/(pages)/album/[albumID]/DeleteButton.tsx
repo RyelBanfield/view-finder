@@ -1,7 +1,5 @@
 "use client";
 
-import { BiSolidTrash } from "react-icons/bi";
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,32 +21,30 @@ const DeleteButton = ({ albumID }: { albumID: string }) => {
   };
 
   return (
-    <>
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button size={"sm"} variant={"outline"}>
-            Delete Album
-          </Button>
-        </AlertDialogTrigger>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button size={"sm"} variant={"outline"}>
+          Delete Album
+        </Button>
+      </AlertDialogTrigger>
 
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              album and remove it from our servers.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your
+            album and remove it from our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
 
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete}>
-              Delete Permanently
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleDelete}>
+            Delete Permanently
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 
