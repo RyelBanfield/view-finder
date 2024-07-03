@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -31,8 +30,6 @@ const formSchema = z.object({
 });
 
 const CreateAlbumForm = () => {
-  const [sheetOpen, setSheetOpen] = useState(false);
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,7 +42,7 @@ const CreateAlbumForm = () => {
   };
 
   return (
-    <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+    <Sheet>
       <SheetTrigger asChild>
         <Button size={"sm"}>Create Album</Button>
       </SheetTrigger>
