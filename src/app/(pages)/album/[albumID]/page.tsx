@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 
 import { fetchUserAuthAction } from "@/app/actions";
-import { Button } from "@/components/ui/button";
 
 import { fetchAlbumAction } from "./actions";
 import DeleteButton from "./DeleteButton";
+import UploadButton from "./UploadButton";
 
 const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
   const user = await fetchUserAuthAction();
@@ -30,7 +30,7 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
         )}
       </div>
 
-      <Button size={"sm"}>Upload Photos</Button>
+      <UploadButton />
     </div>
   );
 };
