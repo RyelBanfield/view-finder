@@ -1,10 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { fetchUserAuthAction } from "@/app/actions";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { fetchAlbumAction, fetchPhotosAction } from "./actions";
-import DeleteButton from "./DeleteButton";
+import DeleteAlbumButton from "./DeleteAlbumButton";
 import UploadButton from "./UploadButton";
 
 const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
@@ -29,7 +31,11 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
         </div>
 
         {user && user.id === album.user_id && (
-          <DeleteButton albumID={album.id} />
+          <DeleteAlbumButton
+            userID={user.id}
+            albumID={album.id}
+            photos={photos}
+          />
         )}
       </div>
 
@@ -45,18 +51,19 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
         ) : (
           <div className="grid min-h-96 grid-cols-2 gap-3">
             {photos.map((photo) => (
-              <div
+              <Skeleton
                 key={photo.id}
-                className="relative grid h-60 rounded-lg bg-primary"
+                className="relative grid h-60 rounded-lg"
               >
-                <Image
-                  alt=""
-                  src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${photo.file_path}`}
-                  width={1080}
-                  height={1080}
-                  className="absolute h-full w-full rounded-lg object-cover"
-                />
-              </div>
+                <Link href={`/photo/${photo.id}`}>
+                  <Image
+                    alt=""
+                    src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${photo.file_path}`}
+                    fill
+                    className="absolute h-full w-full rounded-lg object-cover"
+                  />
+                </Link>
+              </Skeleton>
             ))}
           </div>
         )}
