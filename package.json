@@ -29,6 +29,7 @@
     "@relume_io/relume-tailwind": "^0.3.0",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.44.2",
+    "@uppy/compressor": "^1.1.4",
     "@uppy/core": "^3.13.1",
     "@uppy/dashboard": "^3.9.1",
     "@uppy/drag-drop": "^3.1.1",
