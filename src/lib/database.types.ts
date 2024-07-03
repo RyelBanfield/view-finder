@@ -63,6 +63,45 @@ export type Database = {
           },
         ]
       }
+      photos: {
+        Row: {
+          album_id: string
+          created_at: string
+          file_path: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          album_id: string
+          created_at?: string
+          file_path: string
+          id?: string
+          user_id?: string
+        }
+        Update: {
+          album_id?: string
+          created_at?: string
+          file_path?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_photos_album_id_fkey"
+            columns: ["album_id"]
+            isOneToOne: false
+            referencedRelation: "albums"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_photos_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           created_at: string
