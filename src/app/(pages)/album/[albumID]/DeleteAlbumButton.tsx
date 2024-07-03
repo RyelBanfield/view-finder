@@ -12,12 +12,21 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Tables } from "@/lib/database.types";
 
 import { deleteAlbumAction } from "./actions";
 
-const DeleteButton = ({ albumID }: { albumID: string }) => {
+const DeleteAlbumButton = ({
+  userID,
+  albumID,
+  photos,
+}: {
+  userID: string;
+  albumID: string;
+  photos: Tables<"photos">[] | null;
+}) => {
   const handleDelete = () => {
-    deleteAlbumAction(albumID);
+    deleteAlbumAction(userID, albumID, photos);
   };
 
   return (
@@ -48,4 +57,4 @@ const DeleteButton = ({ albumID }: { albumID: string }) => {
   );
 };
 
-export default DeleteButton;
+export default DeleteAlbumButton;
