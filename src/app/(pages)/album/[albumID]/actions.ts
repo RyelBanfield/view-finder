@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import { Tables } from "@/lib/database.types";
 import { createClient } from "@/utils/supabase/server";
 
 export const fetchAlbumAction = async (albumID: string) => {
@@ -22,14 +23,32 @@ export const fetchAlbumAction = async (albumID: string) => {
   return data;
 };
 
-export const deleteAlbumAction = async (albumID: string) => {
+export const deleteAlbumAction = async (
+  userID: string,
+  albumID: string,
+  photos: Tables<"photos">[] | null,
+) => {
   const supabase = createClient();
 
-  const { error } = await supabase.from("albums").delete().eq("id", albumID);
+  const { error: databaseError } = await supabase
+    .from("albums")
+    .delete()
+    .eq("id", albumID);
 
-  if (error) {
-    console.error(error);
-    return error;
+  if (databaseError) {
+    console.error(databaseError);
+    return databaseError;
+  }
+
+  if (photos) {
+    const { error: storageError } = await supabase.storage
+      .from("photos")
+      .remove(photos.map((photo) => photo.file_path));
+
+    if (storageError) {
+      console.error(storageError);
+      return storageError;
+    }
   }
 
   revalidatePath("/", "layout");
