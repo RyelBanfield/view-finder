@@ -31,7 +31,23 @@ export const fetchProfileAction = async () => {
     .eq("id", userAuth.user.id)
     .single();
 
-  if (profileError) throw new Error(profileError.message);
+  if (profileError) {
+    console.error(profileError.message);
+    return null;
+  }
 
-  return userProfile;
+  const { count: photoCount, error: photoCountError } = await supabase
+    .from("photos")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", userAuth.user.id);
+
+  if (photoCountError) {
+    console.error(photoCountError);
+    return null;
+  }
+
+  return {
+    ...userProfile,
+    photo_count: photoCount as number,
+  };
 };
