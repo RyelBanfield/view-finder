@@ -3,6 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { fetchProfileAction } from "@/app/actions";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { fetchAlbumAction, fetchPhotosAction } from "./actions";
@@ -18,7 +26,25 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
   const photos = await fetchPhotosAction(album.id);
 
   return (
-    <div className="flex flex-col gap-6 px-5 py-12">
+    <div className="flex flex-col gap-6 px-5">
+      {user && user.id === album.user_id && (
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/profile">Profile</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{album.name}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      )}
+
       <div className="flex justify-between">
         <div className="flex flex-col gap-1">
           <h1 className="text-4xl font-bold leading-none tracking-tighter">

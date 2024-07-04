@@ -1,9 +1,15 @@
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { fetchUserAuthAction } from "@/app/actions";
-import { Button } from "@/components/ui/button";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 import { fetchAlbumAction } from "../../album/[albumID]/actions";
 import { fetchPhotoAction } from "./actions";
@@ -19,7 +25,31 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
   if (!album) return notFound();
 
   return (
-    <div className="flex flex-col gap-6 px-5 py-12">
+    <div className="flex flex-col gap-6 px-5">
+      {user && user.id === album.user_id && (
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/profile">Profile</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/album/${album.id}`}>
+                {album.name}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Photo</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      )}
+
       <div className="flex justify-between">
         <div className="flex flex-col gap-1">
           <h1 className="text-4xl font-bold leading-none tracking-tighter">
@@ -47,10 +77,6 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
         height={1080}
         className="rounded-lg"
       />
-
-      <Button asChild>
-        <Link href={`/album/${album.id}`}>Back to album</Link>
-      </Button>
     </div>
   );
 };
