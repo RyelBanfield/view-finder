@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { fetchUserAuthAction } from "@/app/actions";
+import { fetchProfileAction } from "@/app/actions";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { fetchAlbumAction, fetchPhotosAction } from "./actions";
@@ -10,10 +10,10 @@ import DeleteAlbumButton from "./DeleteAlbumButton";
 import UploadButton from "./UploadButton";
 
 const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
-  const user = await fetchUserAuthAction();
   const album = await fetchAlbumAction(params.albumID);
-
   if (!album) return notFound();
+
+  const user = await fetchProfileAction();
 
   const photos = await fetchPhotosAction(album.id);
 
@@ -39,7 +39,14 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
         )}
       </div>
 
-      {user && user.id === album.user_id && <UploadButton albumID={album.id} />}
+      {user &&
+        user.id === album.user_id &&
+        user.photo_count < user.max_photos && (
+          <UploadButton
+            albumID={album.id}
+            numberOfPhotosUserCanUpload={user.max_photos - user.photo_count}
+          />
+        )}
 
       <div>
         {!photos || photos.length === 0 ? (
