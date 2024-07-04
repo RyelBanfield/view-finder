@@ -40,7 +40,7 @@ export const deleteAlbumAction = async (
     return databaseError;
   }
 
-  if (photos) {
+  if (photos && photos.length > 0) {
     const { error: storageError } = await supabase.storage
       .from("photos")
       .remove(photos.map((photo) => photo.file_path));
