@@ -3,7 +3,7 @@
   "scripts": {
     "build": "next build",
     "db-deploy": "pnpm dlx supabase db push",
-    "db-diff": "pnpm dlx supabase db diff --schema public",
+    "db-diff": "pnpm dlx supabase db diff --schema public,storage",
     "db-gen-types": "pnpm dlx supabase gen types typescript --local > src/lib/database.types.ts",
     "db-reset": "pnpm dlx supabase db reset",
     "db-restart": "pnpm dlx supabase stop --backup && pnpm dlx supabase start",
