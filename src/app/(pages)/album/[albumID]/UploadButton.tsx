@@ -25,7 +25,13 @@ import { createClient } from "@/utils/supabase/client";
 
 import { insertPhotosAction } from "./actions";
 
-const UploadButton = ({ albumID }: { albumID: string }) => {
+const UploadButton = ({
+  albumID,
+  numberOfPhotosUserCanUpload,
+}: {
+  albumID: string;
+  numberOfPhotosUserCanUpload: number;
+}) => {
   const router = useRouter();
   const supabase = createClient();
 
@@ -57,6 +63,12 @@ const UploadButton = ({ albumID }: { albumID: string }) => {
       ],
     })
     .use(Compressor);
+
+  uppy.setOptions({
+    restrictions: {
+      maxNumberOfFiles: numberOfPhotosUserCanUpload,
+    },
+  });
 
   uppy.on("file-added", (file) => {
     file.meta = {
