@@ -1,14 +1,9 @@
-import { redirect } from "next/navigation";
-
-import { fetchProfileAction } from "@/app/actions";
+import { fetchProfileAction, redirectIfMissingDetails } from "@/app/actions";
 
 const Explore = async () => {
   const userProfile = await fetchProfileAction();
 
-  if (userProfile) {
-    if (!userProfile.first_name || !userProfile.username)
-      redirect("/profile/edit");
-  }
+  await redirectIfMissingDetails(userProfile);
 
   return (
     <div className="grid grow place-items-center">

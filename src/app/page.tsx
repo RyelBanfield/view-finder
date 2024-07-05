@@ -1,17 +1,12 @@
-import { redirect } from "next/navigation";
-
 import { AboutUs } from "@/components/AboutUs";
 import { Hero } from "@/components/Hero";
 
-import { fetchProfileAction } from "./actions";
+import { fetchProfileAction, redirectIfMissingDetails } from "./actions";
 
 const Home = async () => {
   const userProfile = await fetchProfileAction();
 
-  if (userProfile) {
-    if (!userProfile.first_name || !userProfile.username)
-      redirect("/profile/edit");
-  }
+  await redirectIfMissingDetails(userProfile);
 
   return (
     <>

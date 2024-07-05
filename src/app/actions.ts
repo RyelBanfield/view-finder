@@ -1,5 +1,8 @@
 "use server";
 
+import { redirect } from "next/navigation";
+
+import { Tables } from "@/lib/database.types";
 import { createClient } from "@/utils/supabase/server";
 
 export const fetchUserAuthAction = async () => {
@@ -50,4 +53,14 @@ export const fetchProfileAction = async () => {
     ...userProfile,
     photo_count: photoCount as number,
   };
+};
+
+export const redirectIfMissingDetails = async (
+  userProfile: Tables<"users"> | null,
+) => {
+  if (!userProfile) return;
+
+  if (!userProfile.first_name || !userProfile.username) {
+    redirect("/profile/edit");
+  }
 };
