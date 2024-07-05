@@ -10,7 +10,11 @@ export const fetchUserAuth = async () => {
 
   const { data, error } = await supabase.auth.getUser();
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    // eslint-disable-next-line no-console
+    console.error(error.message);
+    return null;
+  }
 
   return data.user;
 };
@@ -20,7 +24,11 @@ export const fetchCurrentUserProfile = async () => {
 
   const { data: userAuth, error: authError } = await supabase.auth.getUser();
 
-  if (authError) throw new Error(authError.message);
+  if (authError) {
+    // eslint-disable-next-line no-console
+    console.error(authError.message);
+    return null;
+  }
 
   const { data: userProfile, error: profileError } = await supabase
     .from("users")
