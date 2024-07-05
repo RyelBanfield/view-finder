@@ -11,7 +11,7 @@ const Explore = async () => {
   }
 
   return (
-    <div className="grid place-items-center py-72">
+    <div className="grid grow place-items-center">
       We&apos;re working on this page.
     </div>
   );
