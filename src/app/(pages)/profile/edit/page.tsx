@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
 
-import { fetchProfileAction } from "@/app/actions";
+import { fetchCurrentUserProfile } from "@/app/actions";
 
 import EditProfileForm from "./EditProfileForm";
 
 const EditProfilePage = async () => {
-  const userProfile = await fetchProfileAction();
+  const userProfile = await fetchCurrentUserProfile();
 
   if (!userProfile) redirect("/login");
 
