@@ -3,7 +3,7 @@ import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 
-import { Footer } from "@/components/Footer";
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
