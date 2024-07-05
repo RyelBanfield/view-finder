@@ -15,10 +15,12 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${GeistSans.className} antialiased`}>
+      <body
+        className={`${GeistSans.className} flex min-h-screen flex-col antialiased`}
+      >
         <Navbar />
 
-        <main>{children}</main>
+        <main className="grow">{children}</main>
 
         <Footer />
       </body>
