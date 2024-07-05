@@ -59,7 +59,7 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
       ) : (
         <div className="grid min-h-96 grid-cols-2 gap-3">
           {photos.map((photo) => (
-            <Skeleton key={photo.id} className="relative grid h-60 rounded-lg">
+            <Skeleton key={photo.id} className="relative grid h-80 rounded-lg">
               <TransitionLink href={`/photo/${photo.id}`}>
                 <Image
                   alt=""
