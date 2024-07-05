@@ -105,6 +105,7 @@ export const fetchPhotosByAlbumID = async (albumID: string) => {
     .eq("album_id", albumID);
 
   if (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
     return null;
   }
