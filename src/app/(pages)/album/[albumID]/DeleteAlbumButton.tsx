@@ -32,7 +32,7 @@ const DeleteAlbumButton = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button size={"sm"} variant={"outline"}>
+        <Button size={"sm"} variant={"outline"} className="w-28">
           Delete Album
         </Button>
       </AlertDialogTrigger>
