@@ -8,8 +8,7 @@ import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "View Finder",
-  description:
-    "Explore stunning photography and connect with professional photographers.",
+  description: "Explore and share stunning photography.",
 };
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
