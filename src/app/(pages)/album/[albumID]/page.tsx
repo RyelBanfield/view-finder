@@ -2,54 +2,32 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { fetchProfileAction } from "@/app/actions";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+  fetchAlbumByID,
+  fetchCurrentUserProfile,
+  fetchPhotosByAlbumID,
+} from "@/app/actions";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import { fetchAlbumAction, fetchPhotosAction } from "./actions";
 import DeleteAlbumButton from "./DeleteAlbumButton";
 import UploadButton from "./UploadButton";
 
 const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
-  const album = await fetchAlbumAction(params.albumID);
+  const album = await fetchAlbumByID(params.albumID);
+
   if (!album) return notFound();
 
-  const user = await fetchProfileAction();
+  const user = await fetchCurrentUserProfile();
 
-  const photos = await fetchPhotosAction(album.id);
+  const photos = await fetchPhotosByAlbumID(album.id);
 
   return (
-    <div className="flex flex-col gap-6 px-5">
-      {user && user.id === album.user_id && (
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/profile">Profile</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{album.name}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      )}
-
+    <div className="flex grow flex-col gap-6 p-6">
       <div className="flex justify-between">
         <div className="flex flex-col gap-1">
-          <h1 className="text-4xl font-bold leading-none tracking-tighter">
+          <h2 className="text-4xl font-bold leading-none tracking-tighter">
             {album.name}
-          </h1>
+          </h2>
 
           <p className="leading-none tracking-tighter text-muted-foreground">
             {new Date(album.created_at).toDateString().slice(4)}
@@ -74,33 +52,28 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
           />
         )}
 
-      <div>
-        {!photos || photos.length === 0 ? (
-          <div className="grid h-96 place-items-center">
-            <p className="tracking-tight">
-              Upload your first photos to get started.
-            </p>
-          </div>
-        ) : (
-          <div className="grid min-h-96 grid-cols-2 gap-3">
-            {photos.map((photo) => (
-              <Skeleton
-                key={photo.id}
-                className="relative grid h-60 rounded-lg"
-              >
-                <Link href={`/photo/${photo.id}`}>
-                  <Image
-                    alt=""
-                    src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${photo.file_path}`}
-                    fill
-                    className="absolute h-full w-full rounded-lg object-cover"
-                  />
-                </Link>
-              </Skeleton>
-            ))}
-          </div>
-        )}
-      </div>
+      {!photos || photos.length === 0 ? (
+        <div className="grid grow place-items-center">
+          <p className="tracking-tight">
+            Upload your first photos to get started.
+          </p>
+        </div>
+      ) : (
+        <div className="grid min-h-96 grid-cols-2 gap-3">
+          {photos.map((photo) => (
+            <Skeleton key={photo.id} className="relative grid h-60 rounded-lg">
+              <Link href={`/photo/${photo.id}`}>
+                <Image
+                  alt=""
+                  src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${photo.file_path}`}
+                  fill
+                  className="absolute h-full w-full rounded-lg object-cover"
+                />
+              </Link>
+            </Skeleton>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
