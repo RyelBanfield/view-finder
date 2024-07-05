@@ -17,7 +17,9 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     <html lang="en" className="scroll-smooth">
       <body className={`${GeistSans.className} antialiased`}>
         <Navbar />
+
         <main>{children}</main>
+
         <Footer />
       </body>
     </html>
