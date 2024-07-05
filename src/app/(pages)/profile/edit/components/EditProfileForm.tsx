@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { updateUsername } from "@/app/actions/userActions";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,8 +17,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Tables } from "@/lib/database.types";
-
-import { updateUsername } from "../actions";
 
 const formSchema = z.object({
   first_name: z

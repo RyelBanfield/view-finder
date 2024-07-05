@@ -5,7 +5,41 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
 
-export const fetchPhotoAction = async (photoID: string) => {
+export const insertPhotos = async (
+  uploadedPhotos: {
+    user_id: string;
+    album_id: string;
+    file_path: string;
+  }[],
+) => {
+  const supabase = createClient();
+
+  const { error } = await supabase.from("photos").insert(uploadedPhotos);
+
+  if (error) {
+    console.error(error);
+    return error;
+  }
+};
+
+export const fetchPhotosByAlbumID = async (albumID: string) => {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("photos")
+    .select("*")
+    .eq("album_id", albumID);
+
+  if (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    return null;
+  }
+
+  return data;
+};
+
+export const fetchPhotoByID = async (photoID: string) => {
   const supabase = createClient();
 
   const { data, error } = await supabase
@@ -22,7 +56,7 @@ export const fetchPhotoAction = async (photoID: string) => {
   return data;
 };
 
-export const deletePhotoAction = async (
+export const deletePhotoAndRedirectToAlbum = async (
   photoID: string,
   albumID: string,
   filePath: string,

@@ -1,16 +1,14 @@
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import {
-  fetchAlbumByID,
-  fetchCurrentUserProfile,
-  fetchPhotosByAlbumID,
-} from "@/app/actions";
+import { fetchAlbumByID } from "@/app/actions/albumActions";
+import { fetchPhotosByAlbumID } from "@/app/actions/photoActions";
+import { fetchCurrentUserProfile } from "@/app/actions/userActions";
+import TransitionLink from "@/components/TransitionLink";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import DeleteAlbumButton from "./DeleteAlbumButton";
-import UploadButton from "./UploadButton";
+import DeleteAlbumButton from "./components/DeleteAlbumButton";
+import UploadButton from "./components/UploadButton";
 
 const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
   const album = await fetchAlbumByID(params.albumID);
@@ -62,14 +60,14 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
         <div className="grid min-h-96 grid-cols-2 gap-3">
           {photos.map((photo) => (
             <Skeleton key={photo.id} className="relative grid h-60 rounded-lg">
-              <Link href={`/photo/${photo.id}`}>
+              <TransitionLink href={`/photo/${photo.id}`}>
                 <Image
                   alt=""
                   src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${photo.file_path}`}
                   fill
                   className="absolute h-full w-full rounded-lg object-cover"
                 />
-              </Link>
+              </TransitionLink>
             </Skeleton>
           ))}
         </div>

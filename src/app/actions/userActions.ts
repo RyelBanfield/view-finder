@@ -1,9 +1,45 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { Tables } from "@/lib/database.types";
 import { createClient } from "@/utils/supabase/server";
+
+export const loginWithEmail = async (email: string) => {
+  const supabase = createClient();
+
+  await supabase.auth.signInWithOtp({
+    email: email,
+    options: {
+      shouldCreateUser: true,
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+    },
+  });
+};
+
+export const updateUsername = async (
+  id: string,
+  first_name: string,
+  last_name: string,
+  username: string,
+) => {
+  const supabase = createClient();
+
+  const { error } = await supabase
+    .from("users")
+    .update({
+      first_name,
+      last_name,
+      username,
+    })
+    .eq("id", id);
+
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/", "layout");
+  redirect("/profile");
+};
 
 export const fetchUserAuth = async () => {
   const supabase = createClient();
@@ -61,52 +97,17 @@ export const redirectIfMissingDetails = async (
   }
 };
 
-export const fetchAlbumsByUserID = async (userID: string) => {
+export const fetchUserByUsername = async (username: string) => {
   const supabase = createClient();
 
   const { data, error } = await supabase
-    .from("albums")
+    .from("users")
     .select("*")
-    .eq("user_id", userID);
-
-  if (error) {
-    // eslint-disable-next-line no-console
-    console.error(error.message);
-    return null;
-  }
-
-  return data;
-};
-
-export const fetchAlbumByID = async (albumID: string) => {
-  const supabase = createClient();
-
-  const { data, error } = await supabase
-    .from("albums")
-    .select("*")
-    .eq("id", albumID)
+    .eq("username", username)
     .single();
 
   if (error) {
-    // eslint-disable-next-line no-console
     console.error(error.message);
-    return null;
-  }
-
-  return data;
-};
-
-export const fetchPhotosByAlbumID = async (albumID: string) => {
-  const supabase = createClient();
-
-  const { data, error } = await supabase
-    .from("photos")
-    .select("*")
-    .eq("album_id", albumID);
-
-  if (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
     return null;
   }
 

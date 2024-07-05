@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+import { insertPhotos } from "@/app/actions/photoActions";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -22,8 +23,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { createClient } from "@/utils/supabase/client";
-
-import { insertPhotosAction } from "./actions";
 
 const UploadButton = ({
   albumID,
@@ -86,7 +85,7 @@ const UploadButton = ({
       file_path: file.meta.objectName as string,
     }));
 
-    await insertPhotosAction(uploadedPhotos);
+    await insertPhotos(uploadedPhotos);
   });
 
   return (

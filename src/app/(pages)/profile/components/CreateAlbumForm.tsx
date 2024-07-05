@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { createAlbumAction } from "@/app/(pages)/profile/actions";
+import { createAlbum } from "@/app/actions/albumActions";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -38,7 +38,7 @@ const CreateAlbumForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await createAlbumAction(values.name);
+    await createAlbum(values.name);
   };
 
   return (

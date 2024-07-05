@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { loginWithEmailAction } from "./actions";
+import { loginWithEmail } from "./actions";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -35,7 +35,7 @@ const LoginForm = () => {
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     setEmailSubmitted(true);
-    loginWithEmailAction(values.email);
+    loginWithEmail(values.email);
   };
 
   return !emailSubmitted ? (

@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 
-import { fetchUserProfileAction } from "./actions";
+import { fetchUserByUsername } from "@/app/actions/userActions";
 
 const UserPage = async ({ params }: { params: { username: string } }) => {
-  const userProfile = await fetchUserProfileAction(params.username);
+  const userProfile = await fetchUserByUsername(params.username);
 
   if (!userProfile) return notFound();
 

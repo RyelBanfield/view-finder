@@ -1,7 +1,7 @@
 import {
   fetchCurrentUserProfile,
   redirectIfMissingDetails,
-} from "@/app/actions";
+} from "@/app/actions/userActions";
 
 const Explore = async () => {
   const userProfile = await fetchCurrentUserProfile();

@@ -1,5 +1,6 @@
 "use client";
 
+import { deletePhotoAndRedirectToAlbum } from "@/app/actions/photoActions";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,8 +14,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-import { deletePhotoAction } from "./actions";
-
 const DeletePhotoButton = ({
   photoID,
   albumID,
@@ -25,7 +24,7 @@ const DeletePhotoButton = ({
   filePath: string;
 }) => {
   const handleDelete = () => {
-    deletePhotoAction(photoID, albumID, filePath);
+    deletePhotoAndRedirectToAlbum(photoID, albumID, filePath);
   };
 
   return (

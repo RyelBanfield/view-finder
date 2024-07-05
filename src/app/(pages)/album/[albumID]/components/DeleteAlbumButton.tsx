@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteAlbumAndPhotos } from "@/app/actions/albumActions";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,8 +15,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Tables } from "@/lib/database.types";
 
-import { deleteAlbumAction } from "./actions";
-
 const DeleteAlbumButton = ({
   userID,
   albumID,
@@ -26,7 +25,7 @@ const DeleteAlbumButton = ({
   photos: Tables<"photos">[] | null;
 }) => {
   const handleDelete = () => {
-    deleteAlbumAction(userID, albumID, photos);
+    deleteAlbumAndPhotos(userID, albumID, photos);
   };
 
   return (

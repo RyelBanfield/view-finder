@@ -3,8 +3,8 @@ import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+import Footer from "@/app/components/Footer";
+import Navbar from "@/app/components/Navbar";
 
 export const metadata: Metadata = {
   title: "View Finder",

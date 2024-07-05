@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 
-import { fetchCurrentUserProfile } from "@/app/actions";
+import { fetchCurrentUserProfile } from "@/app/actions/userActions";
 
-import EditProfileForm from "./EditProfileForm";
+import EditProfileForm from "./components/EditProfileForm";
 
 const EditProfilePage = async () => {
   const userProfile = await fetchCurrentUserProfile();

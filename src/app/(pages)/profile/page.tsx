@@ -1,14 +1,14 @@
 import { redirect } from "next/navigation";
 
+import { fetchAlbumsByUserID } from "@/app/actions/albumActions";
 import {
-  fetchAlbumsByUserID,
   fetchCurrentUserProfile,
   redirectIfMissingDetails,
-} from "@/app/actions";
+} from "@/app/actions/userActions";
 import TransitionLink from "@/components/TransitionLink";
 import { Button } from "@/components/ui/button";
 
-import CreateAlbumForm from "./CreateAlbumForm";
+import CreateAlbumForm from "./components/CreateAlbumForm";
 
 const ProfilePage = async () => {
   const userProfile = await fetchCurrentUserProfile();

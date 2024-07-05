@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Button, ButtonProps } from "./ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 
 type ImageProps = {
   src: string;

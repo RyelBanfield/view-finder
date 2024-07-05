@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 
-import TransitionLink from "./TransitionLink";
+import TransitionLink from "../../components/TransitionLink";
 
 const NavLinks = ({ userAuth }: { userAuth: User | null }) => {
   const pathname = usePathname();

@@ -1,10 +1,10 @@
 import Image from "next/image";
 
-import { fetchUserAuth } from "@/app/actions";
+import { fetchUserAuth } from "@/app/actions/userActions";
 
-import Logo from "../../public/logos/logo-base-1200x1200.png";
+import Logo from "../../../public/logos/logo-base-1200x1200.png";
+import TransitionLink from "../../components/TransitionLink";
 import NavLinks from "./NavLinks";
-import TransitionLink from "./TransitionLink";
 
 const Navbar = async () => {
   const userAuth = await fetchUserAuth();

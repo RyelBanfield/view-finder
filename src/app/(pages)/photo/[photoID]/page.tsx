@@ -1,55 +1,24 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { fetchUserAuthAction } from "@/app/actions";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { fetchAlbumByID } from "@/app/actions/albumActions";
+import { fetchPhotoByID } from "@/app/actions/photoActions";
+import { fetchUserAuth } from "@/app/actions/userActions";
+import { Skeleton } from "@/components/ui/skeleton";
 
-import { fetchAlbumAction } from "../../album/[albumID]/actions";
-import { fetchPhotoAction } from "./actions";
-import DeletePhotoButton from "./DeletePhotoButton";
+import DeletePhotoButton from "./components/DeletePhotoButton";
 
 const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
-  const user = await fetchUserAuthAction();
-  const photo = await fetchPhotoAction(params.photoID);
+  const user = await fetchUserAuth();
+  const photo = await fetchPhotoByID(params.photoID);
 
   if (!photo) return notFound();
 
-  const album = await fetchAlbumAction(photo.album_id);
+  const album = await fetchAlbumByID(photo.album_id);
   if (!album) return notFound();
 
   return (
-    <div className="flex flex-col gap-6 px-5">
-      {user && user.id === album.user_id && (
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/profile">Profile</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/album/${album.id}`}>
-                {album.name}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Photo</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      )}
-
+    <div className="flex grow flex-col gap-6 p-6">
       <div className="flex justify-between">
         <div className="flex flex-col gap-1">
           <h1 className="text-4xl font-bold leading-none tracking-tighter">
@@ -70,13 +39,15 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
         )}
       </div>
 
-      <Image
-        src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${photo.file_path}`}
-        alt=""
-        width={1080}
-        height={1080}
-        className="rounded-lg"
-      />
+      <Skeleton>
+        <Image
+          src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${photo.file_path}`}
+          alt=""
+          width={1080}
+          height={1080}
+          className="rounded-lg"
+        />
+      </Skeleton>
     </div>
   );
 };
