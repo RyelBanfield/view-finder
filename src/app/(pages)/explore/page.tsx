@@ -1,7 +1,10 @@
-import { fetchProfileAction, redirectIfMissingDetails } from "@/app/actions";
+import {
+  fetchCurrentUserProfile,
+  redirectIfMissingDetails,
+} from "@/app/actions";
 
 const Explore = async () => {
-  const userProfile = await fetchProfileAction();
+  const userProfile = await fetchCurrentUserProfile();
 
   await redirectIfMissingDetails(userProfile);
 

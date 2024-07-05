@@ -5,28 +5,22 @@ import { redirect } from "next/navigation";
 import { Tables } from "@/lib/database.types";
 import { createClient } from "@/utils/supabase/server";
 
-export const fetchUserAuthAction = async () => {
+export const fetchUserAuth = async () => {
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.getUser();
 
-  if (error) {
-    console.error(error.message);
-    return null;
-  }
+  if (error) throw new Error(error.message);
 
   return data.user;
 };
 
-export const fetchProfileAction = async () => {
+export const fetchCurrentUserProfile = async () => {
   const supabase = createClient();
 
   const { data: userAuth, error: authError } = await supabase.auth.getUser();
 
-  if (authError) {
-    console.error(authError.message);
-    return null;
-  }
+  if (authError) throw new Error(authError.message);
 
   const { data: userProfile, error: profileError } = await supabase
     .from("users")
@@ -34,20 +28,14 @@ export const fetchProfileAction = async () => {
     .eq("id", userAuth.user.id)
     .single();
 
-  if (profileError) {
-    console.error(profileError.message);
-    return null;
-  }
+  if (profileError) throw new Error(profileError.message);
 
   const { count: photoCount, error: photoCountError } = await supabase
     .from("photos")
     .select("*", { count: "exact", head: true })
     .eq("user_id", userAuth.user.id);
 
-  if (photoCountError) {
-    console.error(photoCountError);
-    return null;
-  }
+  if (photoCountError) throw new Error(photoCountError.message);
 
   return {
     ...userProfile,
@@ -63,4 +51,17 @@ export const redirectIfMissingDetails = async (
   if (!userProfile.first_name || !userProfile.username) {
     redirect("/profile/edit");
   }
+};
+
+export const fetchAlbumsByUserID = async (userID: string) => {
+  const supabase = createClient();
+
+  const { data: albums, error } = await supabase
+    .from("albums")
+    .select("*")
+    .eq("user_id", userID);
+
+  if (error) throw new Error(error.message);
+
+  return albums;
 };

@@ -1,32 +1,26 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { fetchProfileAction } from "@/app/actions";
+import {
+  fetchAlbumsByUserID,
+  fetchCurrentUserProfile,
+  redirectIfMissingDetails,
+} from "@/app/actions";
 import { Button } from "@/components/ui/button";
-import { createClient } from "@/utils/supabase/server";
 
 import CreateAlbumForm from "./CreateAlbumForm";
 
 const ProfilePage = async () => {
-  const supabase = createClient();
-
-  const userProfile = await fetchProfileAction();
+  const userProfile = await fetchCurrentUserProfile();
 
   if (!userProfile) redirect("/login");
 
-  if (!userProfile.first_name || !userProfile.username) {
-    redirect("/profile/edit");
-  }
+  await redirectIfMissingDetails(userProfile);
 
-  const { data: albums, error } = await supabase
-    .from("albums")
-    .select("*")
-    .eq("user_id", userProfile.id);
-
-  if (error) throw new Error(error.message);
+  const albums = await fetchAlbumsByUserID(userProfile.id);
 
   return (
-    <div className="flex flex-col gap-6 px-5 py-12">
+    <div className="flex flex-col gap-6 px-5 py-6">
       <div className="flex justify-between">
         <div className="flex flex-col gap-1">
           <h1 className="text-4xl font-bold leading-none tracking-tighter">

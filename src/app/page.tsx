@@ -1,10 +1,10 @@
 import { AboutUs } from "@/components/AboutUs";
 import { Hero } from "@/components/Hero";
 
-import { fetchProfileAction, redirectIfMissingDetails } from "./actions";
+import { fetchCurrentUserProfile, redirectIfMissingDetails } from "./actions";
 
 const Home = async () => {
-  const userProfile = await fetchProfileAction();
+  const userProfile = await fetchCurrentUserProfile();
 
   await redirectIfMissingDetails(userProfile);
 
