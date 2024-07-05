@@ -64,12 +64,50 @@ export const redirectIfMissingDetails = async (
 export const fetchAlbumsByUserID = async (userID: string) => {
   const supabase = createClient();
 
-  const { data: albums, error } = await supabase
+  const { data, error } = await supabase
     .from("albums")
     .select("*")
     .eq("user_id", userID);
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    // eslint-disable-next-line no-console
+    console.error(error.message);
+    return null;
+  }
 
-  return albums;
+  return data;
+};
+
+export const fetchAlbumByID = async (albumID: string) => {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("albums")
+    .select("*")
+    .eq("id", albumID)
+    .single();
+
+  if (error) {
+    // eslint-disable-next-line no-console
+    console.error(error.message);
+    return null;
+  }
+
+  return data;
+};
+
+export const fetchPhotosByAlbumID = async (albumID: string) => {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("photos")
+    .select("*")
+    .eq("album_id", albumID);
+
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  return data;
 };
