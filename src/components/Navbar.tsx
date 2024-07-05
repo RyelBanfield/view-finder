@@ -1,13 +1,13 @@
 import Image from "next/image";
 
-import { fetchUserAuthAction } from "@/app/actions";
+import { fetchUserAuth } from "@/app/actions";
 
 import Logo from "../../public/logos/logo-base-1200x1200.png";
 import NavLinks from "./NavLinks";
 import TransitionLink from "./TransitionLink";
 
 const Navbar = async () => {
-  const userAuth = await fetchUserAuthAction();
+  const userAuth = await fetchUserAuth();
 
   return (
     <nav className="flex items-center justify-between p-6">
