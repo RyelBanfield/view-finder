@@ -33,11 +33,7 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
         </div>
 
         {user && user.id === album.user_id && (
-          <DeleteAlbumButton
-            userID={user.id}
-            albumID={album.id}
-            photos={photos}
-          />
+          <DeleteAlbumButton albumID={album.id} photos={photos} />
         )}
       </div>
 

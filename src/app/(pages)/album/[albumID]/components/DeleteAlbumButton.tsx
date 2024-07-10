@@ -16,16 +16,14 @@ import { Button } from "@/components/ui/button";
 import { Tables } from "@/lib/database.types";
 
 const DeleteAlbumButton = ({
-  userID,
   albumID,
   photos,
 }: {
-  userID: string;
   albumID: string;
   photos: Tables<"photos">[] | null;
 }) => {
   const handleDelete = () => {
-    deleteAlbumAndPhotos(userID, albumID, photos);
+    deleteAlbumAndPhotos(albumID, photos);
   };
 
   return (
