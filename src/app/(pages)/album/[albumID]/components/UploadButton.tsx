@@ -61,7 +61,9 @@ const UploadButton = ({
         "cacheControl",
       ],
     })
-    .use(Compressor);
+    .use(Compressor, {
+      quality: 0.8,
+    });
 
   uppy.setOptions({
     restrictions: {
@@ -79,6 +81,8 @@ const UploadButton = ({
   });
 
   uppy.on("complete", async (result) => {
+    if (!result.successful || result.successful.length === 0) return;
+
     const uploadedPhotos = result.successful.map((file) => ({
       user_id: session!.user.id,
       album_id: albumID,
