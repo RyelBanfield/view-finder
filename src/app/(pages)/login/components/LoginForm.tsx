@@ -46,7 +46,7 @@ const LoginForm = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="mx-auto flex grow flex-col justify-center gap-6 p-12"
+            className="flex grow flex-col justify-center gap-6 p-6"
           >
             <h1 className="text-center text-2xl font-bold">Login</h1>
 
@@ -73,7 +73,7 @@ const LoginForm = () => {
 
             <Button size={"sm"} type="submit" disabled={buttonDisabled}>
               {buttonDisabled && (
-                <LoaderCircle className="animate-spin h-4 w-4" />
+                <LoaderCircle className="h-4 w-4 animate-spin" />
               )}
 
               {!buttonDisabled && "Get magic link"}
