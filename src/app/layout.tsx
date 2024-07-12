@@ -1,21 +1,23 @@
 import "./globals.css";
 
-import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
 
 export const metadata: Metadata = {
   title: "View Finder",
-  description: "Explore and share stunning photography.",
+  description: "Photography in focus.",
 };
+
+const inter = Inter({ subsets: ["latin"] });
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${GeistSans.className} flex min-h-screen flex-col antialiased`}
+        className={`${inter.className} flex min-h-screen flex-col antialiased`}
       >
         <Navbar />
 
