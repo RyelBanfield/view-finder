@@ -68,16 +68,16 @@ const EditProfileForm = ({ userProfile }: { userProfile: Tables<"users"> }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex grow flex-col justify-center gap-6 px-6 py-12"
+        className="flex grow flex-col justify-center gap-4 px-6 py-12"
       >
         <FormField
           control={form.control}
           name="first_name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>First Name</FormLabel>
+              <FormLabel className="text-xs">First Name</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input className="text-xs" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -89,9 +89,9 @@ const EditProfileForm = ({ userProfile }: { userProfile: Tables<"users"> }) => {
           name="last_name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Last Name</FormLabel>
+              <FormLabel className="text-xs">Last Name</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input className="text-xs" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -103,9 +103,9 @@ const EditProfileForm = ({ userProfile }: { userProfile: Tables<"users"> }) => {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel className="text-xs">Username</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input className="text-xs" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -117,11 +117,11 @@ const EditProfileForm = ({ userProfile }: { userProfile: Tables<"users"> }) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-xs">Email</FormLabel>
               <FormControl>
-                <Input {...field} disabled />
+                <Input className="text-xs" {...field} disabled />
               </FormControl>
-              <FormDescription>
+              <FormDescription className="text-xs">
                 Your email is permanent for now.
               </FormDescription>
               <FormMessage />
