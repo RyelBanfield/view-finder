@@ -6,12 +6,12 @@ import { Inter } from "next/font/google";
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
 
+const inter = Inter({ subsets: ["latin"] });
+
 export const metadata: Metadata = {
   title: "View Finder",
   description: "Photography in focus.",
 };
-
-const inter = Inter({ subsets: ["latin"] });
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
