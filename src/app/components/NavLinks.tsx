@@ -11,11 +11,11 @@ const NavLinks = ({ userAuth }: { userAuth: User | null }) => {
   const pathname = usePathname();
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-4">
       <TransitionLink
         href="/explore"
         className={cn(
-          "text-sm leading-none tracking-tighter text-muted-foreground hover:text-primary",
+          "text-xs leading-none tracking-tighter text-muted-foreground hover:text-primary",
           {
             "text-primary": pathname === "/explore",
           },
@@ -28,7 +28,7 @@ const NavLinks = ({ userAuth }: { userAuth: User | null }) => {
         <TransitionLink
           href="/login"
           className={cn(
-            "text-sm leading-none tracking-tighter text-muted-foreground hover:text-primary",
+            "text-xs leading-none tracking-tighter text-muted-foreground hover:text-primary",
             {
               "text-primary": pathname === "/login",
             },
@@ -42,7 +42,7 @@ const NavLinks = ({ userAuth }: { userAuth: User | null }) => {
         <TransitionLink
           href="/profile"
           className={cn(
-            "text-sm leading-none tracking-tighter text-muted-foreground hover:text-primary",
+            "text-xs leading-none tracking-tighter text-muted-foreground hover:text-primary",
             {
               "text-primary": pathname === "/profile",
             },

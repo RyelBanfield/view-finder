@@ -129,7 +129,7 @@ const EditProfileForm = ({ userProfile }: { userProfile: Tables<"users"> }) => {
           )}
         />
 
-        <Button type="submit" size={"sm"}>
+        <Button type="submit" size={"sm"} className="text-xs">
           Save
         </Button>
       </form>

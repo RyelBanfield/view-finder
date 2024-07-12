@@ -20,10 +20,10 @@ const ProfilePage = async () => {
   const albums = await fetchAlbumsByUserID(userProfile.id);
 
   return (
-    <div className="flex grow flex-col gap-6 p-6">
+    <div className="flex grow flex-col gap-6 px-6 py-12">
       <div className="flex justify-between">
         <div className="flex flex-col gap-1">
-          <h2 className="text-4xl font-bold leading-none tracking-tighter">
+          <h2 className="text-xl font-bold leading-none tracking-tighter">
             {userProfile.first_name} {userProfile.last_name}
           </h2>
 
@@ -32,8 +32,10 @@ const ProfilePage = async () => {
           </p>
         </div>
 
-        <Button asChild size={"sm"} variant={"outline"} className="w-28">
-          <TransitionLink href="/profile/edit">Edit Profile</TransitionLink>
+        <Button asChild size={"sm"} variant={"outline"}>
+          <TransitionLink href="/profile/edit" className="text-xs">
+            Edit Profile
+          </TransitionLink>
         </Button>
       </div>
 
@@ -41,7 +43,7 @@ const ProfilePage = async () => {
 
       {!albums || albums.length === 0 ? (
         <div className="grid grow place-items-center">
-          <p className="tracking-tight">
+          <p className="text-xs tracking-tight text-muted-foreground">
             Create your first album to get started.
           </p>
         </div>

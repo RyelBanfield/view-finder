@@ -12,9 +12,11 @@ const Navbar = async () => {
   return (
     <nav className="flex items-center justify-between border-b p-6">
       <TransitionLink href="/" className="flex items-center gap-1">
-        <Image src={Logo} alt="View Finder Logo" className="h-5 w-5" />
+        <Image src={Logo} alt="View Finder Logo" className="size-4" />
 
-        <h1 className="font-bold leading-none tracking-tighter">View Finder</h1>
+        <h1 className="text-sm font-bold leading-none tracking-tighter">
+          View Finder
+        </h1>
       </TransitionLink>
 
       <NavLinks userAuth={userAuth} />

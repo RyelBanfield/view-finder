@@ -44,7 +44,9 @@ const CreateAlbumForm = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button size={"sm"}>Create Album</Button>
+        <Button size={"sm"} className="text-xs">
+          Create Album
+        </Button>
       </SheetTrigger>
 
       <SheetContent side={"bottom"}>
@@ -76,7 +78,7 @@ const CreateAlbumForm = () => {
               )}
             />
 
-            <Button size={"sm"} type="submit">
+            <Button size={"sm"} className="text-xs" type="submit">
               Save album name
             </Button>
           </form>
