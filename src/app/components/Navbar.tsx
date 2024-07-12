@@ -10,7 +10,7 @@ const Navbar = async () => {
   const userAuth = await fetchUserAuth();
 
   return (
-    <nav className="flex items-center justify-between p-6">
+    <nav className="flex items-center justify-between border-b p-6">
       <TransitionLink href="/" className="flex items-center gap-1">
         <Image src={Logo} alt="View Finder Logo" className="h-5 w-5" />
 
