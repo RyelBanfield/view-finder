@@ -10,7 +10,9 @@ const Explore = async () => {
 
   return (
     <div className="grid grow place-items-center">
-      <p>We&apos;re working on this page.</p>
+      <p className="text-sm text-muted-foreground">
+        We&apos;re working on this page.
+      </p>
     </div>
   );
 };
