@@ -48,22 +48,30 @@ const LoginForm = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex grow flex-col justify-center gap-6 px-6 py-12"
           >
-            <h1 className="text-center text-2xl font-bold">Login</h1>
+            <div className="space-y-4">
+              <h1 className="text-center text-xl font-bold">Login</h1>
 
-            <p className="text-center text-muted-foreground">
-              If you don&apos;t have an account, one will be created for you.
-            </p>
+              <p className="text-center text-xs text-muted-foreground">
+                If you don&apos;t have an account, one will be created for you.
+              </p>
+            </div>
 
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-xs">Email</FormLabel>
+
                   <FormControl>
-                    <Input placeholder="name@mail.com" {...field} />
+                    <Input
+                      placeholder="name@mail.com"
+                      className="text-xs"
+                      {...field}
+                    />
                   </FormControl>
-                  <FormDescription>
+
+                  <FormDescription className="text-xs">
                     We will send you a magic link.
                   </FormDescription>
                   <FormMessage />
@@ -71,7 +79,12 @@ const LoginForm = () => {
               )}
             />
 
-            <Button size={"sm"} type="submit" disabled={buttonDisabled}>
+            <Button
+              size={"sm"}
+              type="submit"
+              disabled={buttonDisabled}
+              className="text-xs"
+            >
               {buttonDisabled && (
                 <LoaderCircle className="h-4 w-4 animate-spin" />
               )}
@@ -83,11 +96,14 @@ const LoginForm = () => {
       )}
 
       {emailSubmitted && (
-        <div className="flex grow flex-col justify-center gap-6 p-12">
-          <h1 className="text-center text-2xl font-bold">Magic Link Sent</h1>
+        <div className="flex grow flex-col justify-center gap-4 p-12">
+          <h1 className="text-center text-xl font-bold">
+            We&apos;ve sent your link.
+          </h1>
 
-          <p className="text-center text-muted-foreground">
-            Check your email for a magic link.
+          <p className="text-pretty text-center text-xs text-muted-foreground">
+            Check your email for your magic link. If you don&apos;t see it,
+            check your spam folder.
           </p>
         </div>
       )}
