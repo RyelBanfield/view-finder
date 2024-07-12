@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import TransitionLink from "@/components/TransitionLink";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -28,7 +29,7 @@ const Home = async () => {
 
         <div className="flex justify-center space-x-3">
           <Button size={"sm"} className="w-24" asChild>
-            <Link href="/explore">Explore</Link>
+            <TransitionLink href="/explore">Explore</TransitionLink>
           </Button>
 
           <Button size={"sm"} variant={"secondary"} className="w-24" asChild>
