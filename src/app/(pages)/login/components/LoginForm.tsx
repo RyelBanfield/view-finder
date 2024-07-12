@@ -46,7 +46,7 @@ const LoginForm = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex grow flex-col justify-center gap-6 p-6"
+            className="flex grow flex-col justify-center gap-6 px-6 py-12"
           >
             <h1 className="text-center text-2xl font-bold">Login</h1>
 
