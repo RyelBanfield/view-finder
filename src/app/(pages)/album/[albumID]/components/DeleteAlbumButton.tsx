@@ -36,16 +36,18 @@ const DeleteAlbumButton = ({
 
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogTitle className="text-base">
+            Are you absolutely sure?
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-xs">
             This action cannot be undone. This will permanently delete your
             album and remove it from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete}>
+          <AlertDialogCancel className="text-xs">Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleDelete} className="text-xs">
             Delete Permanently
           </AlertDialogAction>
         </AlertDialogFooter>
