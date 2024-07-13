@@ -22,17 +22,17 @@ const ProfilePage = async () => {
   return (
     <div className="flex grow flex-col gap-6 px-6 py-12">
       <div className="flex justify-between">
-        <div className="flex flex-col gap-1">
+        <div className="space-y-1">
           <h2 className="text-xl font-bold leading-none tracking-tighter">
             {userProfile.first_name} {userProfile.last_name}
           </h2>
 
-          <p className="leading-none tracking-tighter text-muted-foreground">
+          <p className="text-sm leading-none tracking-tighter text-muted-foreground">
             {userProfile.username}
           </p>
         </div>
 
-        <Button asChild size={"sm"} variant={"outline"}>
+        <Button asChild size={"sm"} variant={"outline"} className="w-24">
           <TransitionLink href="/profile/edit" className="text-xs">
             Edit Profile
           </TransitionLink>
@@ -44,7 +44,7 @@ const ProfilePage = async () => {
       {!albums || albums.length === 0 ? (
         <div className="grid grow place-items-center">
           <p className="text-xs tracking-tight text-muted-foreground">
-            Create your first album to get started.
+            Create your first album and share your photos.
           </p>
         </div>
       ) : (
@@ -52,7 +52,7 @@ const ProfilePage = async () => {
           {albums &&
             albums.map((album) => (
               <TransitionLink key={album.id} href={`album/${album.id}`}>
-                <div className="grid h-60 w-full place-items-center rounded-lg bg-primary px-3 py-2 text-secondary">
+                <div className="grid h-60 w-full place-items-center rounded-lg bg-primary px-3 py-2 text-xs text-secondary">
                   {album.name}
                 </div>
               </TransitionLink>

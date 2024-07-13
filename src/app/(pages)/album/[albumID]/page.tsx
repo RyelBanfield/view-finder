@@ -20,14 +20,14 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
   const photos = await fetchPhotosByAlbumID(album.id);
 
   return (
-    <div className="flex grow flex-col gap-6 p-6">
+    <div className="flex grow flex-col gap-6 px-6 py-12">
       <div className="flex justify-between">
-        <div className="flex flex-col gap-1">
-          <h2 className="text-4xl font-bold leading-none tracking-tighter">
+        <div className="space-y-1">
+          <h2 className="text-xl font-bold leading-none tracking-tighter">
             {album.name}
           </h2>
 
-          <p className="leading-none tracking-tighter text-muted-foreground">
+          <p className="text-xs leading-none tracking-tighter text-muted-foreground">
             {new Date(album.created_at).toDateString().slice(4)}
           </p>
         </div>
@@ -48,7 +48,7 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
 
       {!photos || photos.length === 0 ? (
         <div className="grid grow place-items-center">
-          <p className="tracking-tight">
+          <p className="text-xs tracking-tight text-muted-foreground">
             Upload your first photos to get started.
           </p>
         </div>

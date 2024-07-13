@@ -95,7 +95,7 @@ const UploadButton = ({
   return (
     <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
       <SheetTrigger asChild>
-        <Button size={"sm"} className="w-full">
+        <Button size={"sm"} className="w-full text-xs">
           Upload Photos
         </Button>
       </SheetTrigger>

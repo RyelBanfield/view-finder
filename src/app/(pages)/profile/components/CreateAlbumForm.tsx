@@ -51,9 +51,9 @@ const CreateAlbumForm = () => {
 
       <SheetContent side={"bottom"}>
         <SheetHeader>
-          <SheetTitle>Create a new album</SheetTitle>
+          <SheetTitle className="text-base">Create a new album</SheetTitle>
 
-          <SheetDescription>
+          <SheetDescription className="text-xs">
             This creates a new album on your profile. You can add photos to this
             album later.
           </SheetDescription>
@@ -68,11 +68,16 @@ const CreateAlbumForm = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Album Name</FormLabel>
+                  <FormLabel className="text-xs">Album Name</FormLabel>
+
                   <FormControl>
-                    <Input {...field} />
+                    <Input className="text-xs" {...field} />
                   </FormControl>
-                  <FormDescription>This is public.</FormDescription>
+
+                  <FormDescription className="text-xs">
+                    This is public.
+                  </FormDescription>
+
                   <FormMessage />
                 </FormItem>
               )}
