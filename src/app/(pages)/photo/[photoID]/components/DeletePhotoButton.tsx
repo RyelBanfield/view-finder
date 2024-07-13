@@ -30,23 +30,25 @@ const DeletePhotoButton = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button size={"sm"} variant={"outline"}>
+        <Button size={"sm"} variant={"outline"} className="w-24 text-xs">
           Delete Photo
         </Button>
       </AlertDialogTrigger>
 
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogTitle className="text-base">
+            Are you absolutely sure?
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-xs">
             This action cannot be undone. This will permanently delete your
             photo and remove it from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete}>
+          <AlertDialogCancel className="text-xs">Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleDelete} className="text-xs">
             Delete Permanently
           </AlertDialogAction>
         </AlertDialogFooter>
