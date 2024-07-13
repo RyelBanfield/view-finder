@@ -5,7 +5,6 @@ import { fetchAlbumByID } from "@/app/actions/albumActions";
 import { fetchPhotosByAlbumID } from "@/app/actions/photoActions";
 import { fetchCurrentUserProfile } from "@/app/actions/userActions";
 import TransitionLink from "@/components/TransitionLink";
-import { Skeleton } from "@/components/ui/skeleton";
 
 import DeleteAlbumButton from "./components/DeleteAlbumButton";
 import UploadButton from "./components/UploadButton";
@@ -16,7 +15,6 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
   if (!album) return notFound();
 
   const user = await fetchCurrentUserProfile();
-
   const photos = await fetchPhotosByAlbumID(album.id);
 
   return (
@@ -49,22 +47,24 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
       {!photos || photos.length === 0 ? (
         <div className="grid grow place-items-center">
           <p className="text-xs tracking-tight text-muted-foreground">
-            Upload your first photos to get started.
+            Upload and share your photos.
           </p>
         </div>
       ) : (
-        <div className="grid min-h-96 grid-cols-2 gap-3">
+        <div className="grid grow grid-cols-2 gap-4">
           {photos.map((photo) => (
-            <Skeleton key={photo.id} className="relative grid h-80 rounded-lg">
-              <TransitionLink href={`/photo/${photo.id}`}>
-                <Image
-                  alt=""
-                  src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${photo.file_path}`}
-                  fill
-                  className="absolute h-full w-full rounded-lg object-cover"
-                />
-              </TransitionLink>
-            </Skeleton>
+            <TransitionLink
+              key={photo.id}
+              href={`/photo/${photo.id}`}
+              className="relative aspect-square shadow-2xl"
+            >
+              <Image
+                alt=""
+                src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${photo.file_path}`}
+                fill
+                className="absolute rounded object-cover object-top"
+              />
+            </TransitionLink>
           ))}
         </div>
       )}

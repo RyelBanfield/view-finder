@@ -52,7 +52,7 @@ const ProfilePage = async () => {
           {albums &&
             albums.map((album) => (
               <TransitionLink key={album.id} href={`album/${album.id}`}>
-                <div className="grid h-60 w-full place-items-center rounded-lg bg-primary px-3 py-2 text-xs text-secondary">
+                <div className="grid aspect-square w-full place-items-center rounded bg-primary text-xs text-secondary shadow-2xl">
                   {album.name}
                 </div>
               </TransitionLink>
