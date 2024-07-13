@@ -27,7 +27,7 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
             {album.name}
           </h2>
 
-          <p className="text-xs leading-none tracking-tighter text-muted-foreground">
+          <p className="text-sm leading-none tracking-tighter text-muted-foreground">
             {new Date(album.created_at).toDateString().slice(4)}
           </p>
         </div>

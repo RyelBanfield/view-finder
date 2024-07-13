@@ -102,8 +102,8 @@ const UploadButton = ({
 
       <SheetContent side={"bottom"}>
         <SheetHeader>
-          <SheetTitle>Ready to upload?</SheetTitle>
-          <SheetDescription>
+          <SheetTitle className="text-base">Ready to upload?</SheetTitle>
+          <SheetDescription className="text-xs">
             This will add photos to this public album.
           </SheetDescription>
         </SheetHeader>
