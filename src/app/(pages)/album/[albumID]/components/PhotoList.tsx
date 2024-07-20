@@ -31,7 +31,7 @@ const PhotoList = ({ photos }: { photos: Tables<"photos">[] }) => {
       variants={containerVariants}
       initial="initial"
       animate="animate"
-      className="grid grow grid-cols-2 gap-4"
+      className="grid grid-cols-2 gap-4"
     >
       {photos.map((photo) => (
         <motion.div
