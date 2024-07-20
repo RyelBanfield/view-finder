@@ -85,3 +85,35 @@ export const deletePhotoAndRedirectToAlbum = async (
   revalidatePath("/", "layout");
   redirect(`/album/${albumID}`);
 };
+
+export const fetchRandomPhotoFromAlbum = async (albumID: string) => {
+  const supabase = createClient();
+
+  const { data: allPhotos, error: fetchError } = await supabase
+    .from("photos")
+    .select("id")
+    .eq("album_id", albumID);
+
+  if (fetchError) {
+    // eslint-disable-next-line no-console
+    console.error(fetchError);
+    return null;
+  }
+
+  const randomIndex = Math.floor(Math.random() * allPhotos.length);
+  const randomPhotoID = allPhotos[randomIndex].id;
+
+  const { data: randomPhoto, error: photoError } = await supabase
+    .from("photos")
+    .select("*")
+    .eq("id", randomPhotoID)
+    .single();
+
+  if (photoError) {
+    // eslint-disable-next-line no-console
+    console.error(photoError);
+    return null;
+  }
+
+  return randomPhoto.file_path;
+};
