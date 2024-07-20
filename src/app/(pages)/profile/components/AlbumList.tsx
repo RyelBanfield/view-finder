@@ -64,7 +64,7 @@ const AlbumList = ({ albums }: { albums: Tables<"albums">[] }) => {
       variants={containerVariants}
       initial="initial"
       animate="animate"
-      className="grid grow grid-cols-2 gap-4"
+      className="grid grid-cols-2 gap-4"
     >
       {albums.map((album) => (
         <motion.div
@@ -94,12 +94,14 @@ const AlbumList = ({ albums }: { albums: Tables<"albums">[] }) => {
                   fill
                   className="absolute rounded object-cover object-top"
                 />
-                <div className="absolute flex h-full w-full items-end rounded bg-gradient-to-b from-transparent via-transparent to-black p-2">
-                  <p className="absolute text-sm text-white/60">{album.name}</p>
+                <div className="absolute flex h-full w-full items-end rounded bg-gradient-to-bl from-transparent via-black/10 to-black p-2">
+                  <p className="absolute text-xs text-white/60">{album.name}</p>
                 </div>
               </>
             ) : (
-              album.name
+              <div className="flex h-full w-full items-end rounded bg-primary p-2">
+                <p className="text-xs text-white/60">{album.name} (Empty)</p>
+              </div>
             )}
           </TransitionLink>
         </motion.div>
