@@ -9,7 +9,7 @@ const Explore = async () => {
   await redirectIfMissingDetails(userProfile);
 
   return (
-    <div className="grid grow place-items-center">
+    <div className="flex grow items-center justify-center">
       <p className="text-sm text-muted-foreground">
         We&apos;re working on this page.
       </p>
