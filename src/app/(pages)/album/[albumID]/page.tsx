@@ -3,6 +3,14 @@ import { notFound } from "next/navigation";
 import { fetchAlbumByID } from "@/app/actions/albumActions";
 import { fetchPhotosByAlbumID } from "@/app/actions/photoActions";
 import { fetchCurrentUserProfile } from "@/app/actions/userActions";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 import DeleteAlbumButton from "./components/DeleteAlbumButton";
 import PhotoList from "./components/PhotoList";
@@ -18,6 +26,22 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
 
   return (
     <div className="flex grow flex-col gap-6 px-6 py-12">
+      {user && (
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/profile">{user.username}</BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbSeparator />
+
+            <BreadcrumbItem>
+              <BreadcrumbPage>{album.name}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      )}
+
       <div className="flex justify-between">
         <div className="space-y-1">
           <h2 className="text-xl font-bold leading-none tracking-tighter">
