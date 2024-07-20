@@ -89,33 +89,20 @@ export const deletePhotoAndRedirectToAlbum = async (
 export const fetchRandomPhotoFromAlbum = async (albumID: string) => {
   const supabase = createClient();
 
-  const { data: allPhotos, error: fetchError } = await supabase
+  const { data: photos, error } = await supabase
     .from("photos")
-    .select("id")
+    .select("id, file_path")
     .eq("album_id", albumID);
 
-  if (fetchError) {
+  if (error) {
     // eslint-disable-next-line no-console
-    console.error(fetchError);
+    console.error(error);
     return null;
   }
 
-  if (allPhotos.length === 0) return null;
+  if (photos.length === 0) return null;
 
-  const randomIndex = Math.floor(Math.random() * allPhotos.length);
-  const randomPhotoID = allPhotos[randomIndex].id;
-
-  const { data: randomPhoto, error: photoError } = await supabase
-    .from("photos")
-    .select("*")
-    .eq("id", randomPhotoID)
-    .single();
-
-  if (photoError) {
-    // eslint-disable-next-line no-console
-    console.error(photoError);
-    return null;
-  }
+  const randomPhoto = photos[Math.floor(Math.random() * photos.length)];
 
   return randomPhoto.file_path;
 };
