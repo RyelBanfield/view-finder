@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { getPlaiceholder } from "plaiceholder";
 
 import { createClient } from "@/utils/supabase/server";
 
@@ -105,4 +106,14 @@ export const fetchRandomPhotoFromAlbum = async (albumID: string) => {
   const randomPhoto = photos[Math.floor(Math.random() * photos.length)];
 
   return randomPhoto.file_path;
+};
+
+export const fetchBase64ForPhoto = async (filePath: string) => {
+  const { base64 } = await getPlaiceholder(
+    await fetch(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/${filePath}`,
+    ).then(async (res) => Buffer.from(await res.arrayBuffer())),
+  );
+
+  return base64;
 };

@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getPlaiceholder } from "plaiceholder";
 
 import { fetchAlbumByID } from "@/app/actions/albumActions";
 import {
+  fetchBase64ForPhoto,
   fetchPhotoByID,
   fetchPhotosByAlbumID,
 } from "@/app/actions/photoActions";
@@ -18,16 +18,6 @@ import {
 } from "@/components/ui/breadcrumb";
 
 import DeletePhotoButton from "./components/DeletePhotoButton";
-
-const fetchBase64ForPhoto = async (filePath: string) => {
-  const { base64 } = await getPlaiceholder(
-    await fetch(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/${filePath}`,
-    ).then(async (res) => Buffer.from(await res.arrayBuffer())),
-  );
-
-  return base64;
-};
 
 const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
   const [photo, user] = await Promise.all([
