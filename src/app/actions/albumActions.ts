@@ -42,7 +42,6 @@ export const createAlbum = async (name: string) => {
   if (insertError) throw new Error(insertError.message);
 
   revalidatePath("/", "layout");
-  redirect(`/album/${album.id}`);
 };
 
 export const fetchAlbumByID = async (albumID: string) => {
