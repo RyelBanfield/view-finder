@@ -100,6 +100,8 @@ export const fetchRandomPhotoFromAlbum = async (albumID: string) => {
     return null;
   }
 
+  if (allPhotos.length === 0) return null;
+
   const randomIndex = Math.floor(Math.random() * allPhotos.length);
   const randomPhotoID = allPhotos[randomIndex].id;
 
