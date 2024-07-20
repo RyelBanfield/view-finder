@@ -4,7 +4,7 @@ import { LoaderCircle } from "lucide-react";
 
 const Loading = () => {
   return (
-    <div className="grid grow place-items-center">
+    <div className="flex grow items-center justify-center">
       <LoaderCircle className="animate-spin" />
     </div>
   );
