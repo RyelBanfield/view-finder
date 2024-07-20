@@ -8,6 +8,7 @@ import {
 import TransitionLink from "@/components/TransitionLink";
 import { Button } from "@/components/ui/button";
 
+import AlbumList from "./components/AlbumList";
 import CreateAlbumForm from "./components/CreateAlbumForm";
 
 const ProfilePage = async () => {
@@ -48,16 +49,7 @@ const ProfilePage = async () => {
           </p>
         </div>
       ) : (
-        <div className="grid min-h-96 grid-cols-2 gap-3">
-          {albums &&
-            albums.map((album) => (
-              <TransitionLink key={album.id} href={`album/${album.id}`}>
-                <div className="grid aspect-square w-full place-items-center rounded bg-primary text-xs text-secondary shadow-2xl">
-                  {album.name}
-                </div>
-              </TransitionLink>
-            ))}
-        </div>
+        <AlbumList albums={albums} />
       )}
     </div>
   );

@@ -1,12 +1,11 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { fetchAlbumByID } from "@/app/actions/albumActions";
 import { fetchPhotosByAlbumID } from "@/app/actions/photoActions";
 import { fetchCurrentUserProfile } from "@/app/actions/userActions";
-import TransitionLink from "@/components/TransitionLink";
 
 import DeleteAlbumButton from "./components/DeleteAlbumButton";
+import PhotoList from "./components/PhotoList";
 import UploadButton from "./components/UploadButton";
 
 const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
@@ -51,22 +50,7 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
           </p>
         </div>
       ) : (
-        <div className="grid grow grid-cols-2 gap-4">
-          {photos.map((photo) => (
-            <TransitionLink
-              key={photo.id}
-              href={`/photo/${photo.id}`}
-              className="relative aspect-square shadow-2xl"
-            >
-              <Image
-                alt=""
-                src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${photo.file_path}`}
-                fill
-                className="absolute rounded object-cover object-top"
-              />
-            </TransitionLink>
-          ))}
-        </div>
+        <PhotoList photos={photos} />
       )}
     </div>
   );
