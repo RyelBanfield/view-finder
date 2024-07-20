@@ -30,7 +30,7 @@ export const createAlbum = async (name: string) => {
 
   if (error) throw new Error(error.message);
 
-  const { data: album, error: insertError } = await supabase
+  const { error: insertError } = await supabase
     .from("albums")
     .insert({
       user_id: data.user.id,
@@ -74,6 +74,7 @@ export const deleteAlbumAndPhotos = async (
     .eq("id", albumID);
 
   if (databaseError) {
+    // eslint-disable-next-line no-console
     console.error(databaseError);
     return databaseError;
   }
@@ -84,6 +85,7 @@ export const deleteAlbumAndPhotos = async (
       .remove(photos.map((photo) => photo.file_path));
 
     if (storageError) {
+      // eslint-disable-next-line no-console
       console.error(storageError);
       return storageError;
     }
