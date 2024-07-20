@@ -9,13 +9,16 @@ import { createClient } from "@/utils/supabase/server";
 export const loginWithEmail = async (email: string) => {
   const supabase = createClient();
 
-  await supabase.auth.signInWithOtp({
-    email: email,
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
     options: {
       shouldCreateUser: true,
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}`,
     },
   });
+
+  if (error) return error.message;
+
+  redirect("/login/email-submitted");
 };
 
 export const updateUsername = async (

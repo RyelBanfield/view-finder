@@ -18,14 +18,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   email: z.string().email(),
 });
 
 const LoginForm = () => {
-  const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,78 +36,70 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    setButtonDisabled(true);
-    await loginWithEmail(values.email);
-    setEmailSubmitted(true);
+    setIsSubmitting(true);
+
+    const error = await loginWithEmail(values.email);
+
+    if (error) {
+      toast({
+        title: "There was an error.",
+        description: error,
+        variant: "destructive",
+      });
+    }
   };
 
   return (
     <>
-      {!emailSubmitted && (
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex grow flex-col justify-center gap-6 px-6 py-12"
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex grow flex-col justify-center gap-6 px-6 py-12"
+        >
+          <div className="space-y-4">
+            <h1 className="text-center text-xl font-bold">Login</h1>
+
+            <p className="text-center text-xs text-muted-foreground">
+              If you don&apos;t have an account, one will be created for you.
+            </p>
+          </div>
+
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xs">Email</FormLabel>
+
+                <FormControl>
+                  <Input
+                    {...field}
+                    placeholder="name@mail.com"
+                    disabled={isSubmitting}
+                    className="text-xs"
+                  />
+                </FormControl>
+
+                <FormDescription className="text-xs">
+                  We will send you a magic link.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button
+            type="submit"
+            size={"sm"}
+            disabled={isSubmitting}
+            className="text-xs"
           >
-            <div className="space-y-4">
-              <h1 className="text-center text-xl font-bold">Login</h1>
+            {isSubmitting && <LoaderCircle className="h-4 w-4 animate-spin" />}
 
-              <p className="text-center text-xs text-muted-foreground">
-                If you don&apos;t have an account, one will be created for you.
-              </p>
-            </div>
-
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-xs">Email</FormLabel>
-
-                  <FormControl>
-                    <Input
-                      placeholder="name@mail.com"
-                      className="text-xs"
-                      {...field}
-                    />
-                  </FormControl>
-
-                  <FormDescription className="text-xs">
-                    We will send you a magic link.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <Button
-              size={"sm"}
-              type="submit"
-              disabled={buttonDisabled}
-              className="text-xs"
-            >
-              {buttonDisabled && (
-                <LoaderCircle className="h-4 w-4 animate-spin" />
-              )}
-
-              {!buttonDisabled && "Get magic link"}
-            </Button>
-          </form>
-        </Form>
-      )}
-
-      {emailSubmitted && (
-        <div className="flex grow flex-col justify-center gap-4 p-12">
-          <h1 className="text-center text-xl font-bold">
-            We&apos;ve sent your link.
-          </h1>
-
-          <p className="text-pretty text-center text-xs text-muted-foreground">
-            Check your email for your magic link. If you don&apos;t see it,
-            check your spam folder.
-          </p>
-        </div>
-      )}
+            {!isSubmitting && "Get magic link"}
+          </Button>
+        </form>
+      </Form>
     </>
   );
 };
