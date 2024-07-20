@@ -19,8 +19,21 @@ import {
 
 import DeletePhotoButton from "./components/DeletePhotoButton";
 
+const fetchBase64ForPhoto = async (filePath: string) => {
+  const { base64 } = await getPlaiceholder(
+    await fetch(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/${filePath}`,
+    ).then(async (res) => Buffer.from(await res.arrayBuffer())),
+  );
+
+  return base64;
+};
+
 const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
-  const photo = await fetchPhotoByID(params.photoID);
+  const [photo, user] = await Promise.all([
+    fetchPhotoByID(params.photoID),
+    fetchCurrentUserProfile(),
+  ]);
 
   if (!photo) return notFound();
 
@@ -28,13 +41,7 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
 
   if (!album) return notFound();
 
-  const user = await fetchCurrentUserProfile();
-
-  const { base64 } = await getPlaiceholder(
-    await fetch(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/${photo.file_path}`,
-    ).then(async (res) => Buffer.from(await res.arrayBuffer())),
-  );
+  const base64 = await fetchBase64ForPhoto(photo.file_path);
 
   const getThreeRandomPhotos = async () => {
     const photosFromAlbum = await fetchPhotosByAlbumID(album.id);
@@ -51,7 +58,19 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
       () => 0.5 - Math.random(),
     );
 
-    return shuffledPhotos.slice(0, 3);
+    const selectedPhotos = shuffledPhotos.slice(0, 3);
+
+    const photosWithBase64 = await Promise.all(
+      selectedPhotos.map(async (photo) => {
+        const base64 = await fetchBase64ForPhoto(photo.file_path);
+        return {
+          ...photo,
+          base64,
+        };
+      }),
+    );
+
+    return photosWithBase64;
   };
 
   const morePhotosFromThisAlbum = await getThreeRandomPhotos();
@@ -125,7 +144,7 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
                     src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/${photo.file_path}`}
                     alt=""
                     placeholder="blur"
-                    blurDataURL={base64}
+                    blurDataURL={photo.base64}
                     fill
                     className="rounded object-cover object-top"
                   />
