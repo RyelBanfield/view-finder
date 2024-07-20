@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,8 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         <main className="flex grow flex-col">{children}</main>
 
         <Footer />
+
+        <Toaster />
       </body>
     </html>
   );
