@@ -24,9 +24,12 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
   const user = await fetchCurrentUserProfile();
   const photos = await fetchPhotosByAlbumID(album.id);
 
+  const userIsAlbumOwner = user && user.id === album.user_id;
+  const userBelowMaxPhotos = user && user.photo_count < user.max_photos;
+
   return (
     <div className="flex grow flex-col gap-6 px-6 py-12">
-      {user && (
+      {userIsAlbumOwner && (
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -53,19 +56,17 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
           </p>
         </div>
 
-        {user && user.id === album.user_id && (
+        {userIsAlbumOwner && (
           <DeleteAlbumButton albumID={album.id} photos={photos} />
         )}
       </div>
 
-      {user &&
-        user.id === album.user_id &&
-        user.photo_count < user.max_photos && (
-          <UploadButton
-            albumID={album.id}
-            numberOfPhotosUserCanUpload={user.max_photos - user.photo_count}
-          />
-        )}
+      {userIsAlbumOwner && userBelowMaxPhotos && (
+        <UploadButton
+          albumID={album.id}
+          numberOfPhotosUserCanUpload={user.max_photos - user.photo_count}
+        />
+      )}
 
       {!photos || photos.length === 0 ? (
         <div className="grid grow place-items-center">
