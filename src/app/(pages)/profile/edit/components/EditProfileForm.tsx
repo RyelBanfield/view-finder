@@ -68,13 +68,13 @@ const EditProfileForm = ({ userProfile }: { userProfile: Tables<"users"> }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex grow flex-col justify-center gap-4 px-6 py-12"
+        className="flex grow flex-col justify-center gap-4 px-6 py-12 md:py-24"
       >
         <FormField
           control={form.control}
           name="first_name"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mx-auto w-full max-w-md">
               <FormLabel className="text-xs">First Name</FormLabel>
               <FormControl>
                 <Input className="text-xs" {...field} />
@@ -88,7 +88,7 @@ const EditProfileForm = ({ userProfile }: { userProfile: Tables<"users"> }) => {
           control={form.control}
           name="last_name"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mx-auto w-full max-w-md">
               <FormLabel className="text-xs">Last Name</FormLabel>
               <FormControl>
                 <Input className="text-xs" {...field} />
@@ -102,7 +102,7 @@ const EditProfileForm = ({ userProfile }: { userProfile: Tables<"users"> }) => {
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mx-auto w-full max-w-md">
               <FormLabel className="text-xs">Username</FormLabel>
               <FormControl>
                 <Input className="text-xs" {...field} />
@@ -116,7 +116,7 @@ const EditProfileForm = ({ userProfile }: { userProfile: Tables<"users"> }) => {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mx-auto w-full max-w-md">
               <FormLabel className="text-xs">Email</FormLabel>
               <FormControl>
                 <Input className="text-xs" {...field} disabled />
@@ -129,7 +129,11 @@ const EditProfileForm = ({ userProfile }: { userProfile: Tables<"users"> }) => {
           )}
         />
 
-        <Button type="submit" size={"sm"} className="text-xs">
+        <Button
+          type="submit"
+          size={"sm"}
+          className="mx-auto w-full max-w-md text-xs"
+        >
           Save
         </Button>
       </form>
