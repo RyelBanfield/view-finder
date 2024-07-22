@@ -110,6 +110,7 @@ export const fetchUserByUsername = async (username: string) => {
     .single();
 
   if (error) {
+    // eslint-disable-next-line no-console
     console.error(error.message);
     return null;
   }

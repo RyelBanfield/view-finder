@@ -18,6 +18,7 @@ export const insertPhotos = async (
   const { error } = await supabase.from("photos").insert(uploadedPhotos);
 
   if (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
     return error;
   }
@@ -50,6 +51,7 @@ export const fetchPhotoByID = async (photoID: string) => {
     .single();
 
   if (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
     return null;
   }
@@ -70,6 +72,7 @@ export const deletePhotoAndRedirectToAlbum = async (
     .eq("id", photoID);
 
   if (databaseError) {
+    // eslint-disable-next-line no-console
     console.error(databaseError);
     return databaseError;
   }
@@ -79,6 +82,7 @@ export const deletePhotoAndRedirectToAlbum = async (
     .remove([`${filePath}`]);
 
   if (storageError) {
+    // eslint-disable-next-line no-console
     console.error(storageError);
     return storageError;
   }
