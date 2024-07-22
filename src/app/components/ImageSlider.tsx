@@ -37,7 +37,7 @@ const images = [
 
 const ImageSlider = () => {
   return (
-    <section className="flex flex-col gap-3 py-12">
+    <section className="flex flex-col gap-3 py-6">
       <section className="flex w-screen justify-start overflow-hidden">
         <motion.div
           initial={{ x: 0 }}
