@@ -44,7 +44,7 @@ const Home = async () => {
 
       <ImageSlider />
 
-      <section id="about-us" className="space-y-4 px-6 py-12">
+      <section id="about-us" className="space-y-4 px-6 pb-24 pt-12">
         <h2 className="text-balance text-2xl font-bold">
           We&apos;re focused on experience.
         </h2>

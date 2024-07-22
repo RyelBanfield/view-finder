@@ -7,7 +7,7 @@ import Logo from "../../../public/logos/logo-base-1200x1200.png";
 
 const Footer = () => {
   return (
-    <footer className="space-y-6 border-t p-6">
+    <footer className="space-y-6 border-t p-12">
       <div className="flex flex-col items-center gap-6">
         <TransitionLink href="/" className="flex items-center gap-1">
           <Image src={Logo} alt="View Finder Logo" className="size-4" />
