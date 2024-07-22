@@ -53,7 +53,7 @@ const ImageSlider = () => {
           {[...images, ...images].map((image, index) => (
             <div
               key={index}
-              className="relative grid aspect-[16/10] w-[80vw] place-items-center md:w-[30vw]"
+              className="relative grid aspect-[16/10] w-[60vw] place-items-center md:w-[40vw] lg:w-[20vw]"
             >
               <Image
                 src={image.src}
@@ -81,7 +81,7 @@ const ImageSlider = () => {
           {[...images, ...images].map((image, index) => (
             <div
               key={index}
-              className="relative grid aspect-[16/10] w-[80vw] place-items-center md:w-[30vw]"
+              className="relative grid aspect-[16/10] w-[60vw] place-items-center md:w-[40vw] lg:w-[20vw]"
             >
               <Image
                 src={image.src}

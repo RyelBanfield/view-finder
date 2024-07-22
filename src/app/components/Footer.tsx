@@ -10,9 +10,13 @@ const Footer = () => {
     <footer className="space-y-6 border-t p-12">
       <div className="flex flex-col items-center gap-6">
         <TransitionLink href="/" className="flex items-center gap-1">
-          <Image src={Logo} alt="View Finder Logo" className="size-4" />
+          <Image
+            src={Logo}
+            alt="View Finder Logo"
+            className="size-4 md:size-5"
+          />
 
-          <h1 className="text-sm font-bold leading-none tracking-tighter">
+          <h1 className="text-sm font-bold leading-none tracking-tighter md:text-base">
             View Finder
           </h1>
         </TransitionLink>

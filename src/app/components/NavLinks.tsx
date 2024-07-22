@@ -15,7 +15,7 @@ const NavLinks = ({ userAuth }: { userAuth: User | null }) => {
       <TransitionLink
         href="/explore"
         className={cn(
-          "text-xs leading-none tracking-tighter text-muted-foreground hover:text-primary",
+          "text-xs leading-none tracking-tighter text-muted-foreground hover:text-primary md:text-sm",
           {
             "text-primary": pathname === "/explore",
           },
@@ -28,7 +28,7 @@ const NavLinks = ({ userAuth }: { userAuth: User | null }) => {
         <TransitionLink
           href="/login"
           className={cn(
-            "text-xs leading-none tracking-tighter text-muted-foreground hover:text-primary",
+            "text-xs leading-none tracking-tighter text-muted-foreground hover:text-primary md:text-sm",
             {
               "text-primary": pathname === "/login",
             },
@@ -42,7 +42,7 @@ const NavLinks = ({ userAuth }: { userAuth: User | null }) => {
         <TransitionLink
           href="/profile"
           className={cn(
-            "text-xs leading-none tracking-tighter text-muted-foreground hover:text-primary",
+            "text-xs leading-none tracking-tighter text-muted-foreground hover:text-primary md:text-sm",
             {
               "text-primary": pathname === "/profile",
             },
