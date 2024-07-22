@@ -68,7 +68,7 @@ const LoginForm = () => {
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mx-auto w-full max-w-md">
                 <FormLabel className="text-xs">Email</FormLabel>
 
                 <FormControl>
@@ -92,7 +92,7 @@ const LoginForm = () => {
             type="submit"
             size={"sm"}
             disabled={isSubmitting}
-            className="text-xs"
+            className="mx-auto w-full max-w-md text-xs"
           >
             {isSubmitting && <LoaderCircle className="h-4 w-4 animate-spin" />}
 
