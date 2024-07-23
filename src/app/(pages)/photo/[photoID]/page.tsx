@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 
 import { fetchAlbumByID } from "@/app/actions/albumActions";
 import {
-  fetchBase64ForPhoto,
   fetchPhotoByID,
   fetchPhotosByAlbumID,
 } from "@/app/actions/photoActions";
@@ -31,8 +30,6 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
 
   if (!album) return notFound();
 
-  const base64 = await fetchBase64ForPhoto(photo.file_path);
-
   const getThreeRandomPhotos = async () => {
     const photosFromAlbum = await fetchPhotosByAlbumID(album.id);
 
@@ -50,17 +47,7 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
 
     const selectedPhotos = shuffledPhotos.slice(0, 3);
 
-    const photosWithBase64 = await Promise.all(
-      selectedPhotos.map(async (photo) => {
-        const base64 = await fetchBase64ForPhoto(photo.file_path);
-        return {
-          ...photo,
-          base64,
-        };
-      }),
-    );
-
-    return photosWithBase64;
+    return selectedPhotos;
   };
 
   const morePhotosFromThisAlbum = await getThreeRandomPhotos();
@@ -116,7 +103,7 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
           src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/${photo.file_path}`}
           alt=""
           placeholder="blur"
-          blurDataURL={base64}
+          blurDataURL={photo.base64}
           width={1080}
           height={1080}
         />
