@@ -11,6 +11,7 @@ export const insertPhotos = async (
     user_id: string;
     album_id: string;
     file_path: string;
+    base64: string;
   }[],
 ) => {
   const supabase = createClient();
