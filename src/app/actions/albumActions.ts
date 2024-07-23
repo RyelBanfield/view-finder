@@ -6,6 +6,8 @@ import { redirect } from "next/navigation";
 import { Tables } from "@/lib/database.types";
 import { createClient } from "@/utils/supabase/server";
 
+import { fetchRandomPhotoFromAlbum } from "./photoActions";
+
 export const fetchAlbumsByUserID = async (userID: string) => {
   const supabase = createClient();
 
@@ -20,7 +22,21 @@ export const fetchAlbumsByUserID = async (userID: string) => {
     return null;
   }
 
-  return data;
+  const albumsWithCoverPhotos = await Promise.all(
+    data.map(async (album) => {
+      const randomPhotoFromAlbum = await fetchRandomPhotoFromAlbum(album.id);
+
+      if (!randomPhotoFromAlbum) return album;
+
+      return {
+        ...album,
+        coverPhoto: randomPhotoFromAlbum.file_path,
+        base64: randomPhotoFromAlbum.base64,
+      };
+    }),
+  );
+
+  return albumsWithCoverPhotos;
 };
 
 export const createAlbum = async (name: string) => {
