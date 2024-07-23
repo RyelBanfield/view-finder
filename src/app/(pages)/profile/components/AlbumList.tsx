@@ -2,13 +2,16 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
-import { fetchRandomPhotoFromAlbum } from "@/app/actions/photoActions";
 import TransitionLink from "@/components/TransitionLink";
 import { Tables } from "@/lib/database.types";
 
-const AlbumList = ({ albums }: { albums: Tables<"albums">[] }) => {
+interface AlbumWithCoverPhoto extends Tables<"albums"> {
+  coverPhoto?: string;
+  base64?: string;
+}
+
+const AlbumList = ({ albums }: { albums: AlbumWithCoverPhoto[] }) => {
   const containerVariants = {
     animate: {
       transition: {
@@ -27,37 +30,6 @@ const AlbumList = ({ albums }: { albums: Tables<"albums">[] }) => {
       y: 0,
     },
   };
-
-  const [coverPhotos, setCoverPhotos] = useState<{
-    [key: string]: string | null;
-  }>({});
-
-  useEffect(() => {
-    const fetchCoverPhotos = async () => {
-      if (albums) {
-        const photos = await Promise.all(
-          albums.map(async (album) => {
-            const filePath = await fetchRandomPhotoFromAlbum(album.id);
-            return { albumId: album.id, url: filePath || null };
-          }),
-        );
-
-        const photoMap = photos.reduce(
-          (acc, photo) => {
-            if (photo.url) {
-              acc[photo.albumId] = photo.url;
-            }
-            return acc;
-          },
-          {} as { [key: string]: string | null },
-        );
-
-        setCoverPhotos(photoMap);
-      }
-    };
-
-    fetchCoverPhotos();
-  }, [albums]);
 
   return (
     <motion.div
@@ -86,12 +58,14 @@ const AlbumList = ({ albums }: { albums: Tables<"albums">[] }) => {
           className="relative aspect-square rounded shadow-2xl"
         >
           <TransitionLink href={`album/${album.id}`}>
-            {coverPhotos[album.id] ? (
+            {album.coverPhoto ? (
               <>
                 <Image
-                  src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${coverPhotos[album.id]}`}
+                  src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${album.coverPhoto}`}
                   alt={album.name}
                   fill
+                  placeholder="blur"
+                  blurDataURL={album.base64}
                   className="absolute rounded object-cover object-top"
                 />
                 <div className="absolute flex h-full w-full items-end rounded bg-gradient-to-bl from-transparent via-black/10 to-black p-2">
