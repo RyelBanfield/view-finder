@@ -35,7 +35,7 @@ const Footer = () => {
       </div>
 
       <p className="text-center text-xs text-muted-foreground">
-        © 2024 View Finder | RCB Software LLC.
+        © 2024 View Finder | RCB Software LLC
       </p>
     </footer>
   );
