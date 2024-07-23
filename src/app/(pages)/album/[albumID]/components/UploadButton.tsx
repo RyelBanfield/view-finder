@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { insertPhotos } from "@/app/actions/photoActions";
+import { fetchBase64ForPhoto, insertPhotos } from "@/app/actions/photoActions";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -80,17 +80,30 @@ const UploadButton = ({
     };
   });
 
-  uppy.on("complete", async (result) => {
-    if (!result.successful || result.successful.length === 0) return;
+  const postProcessFiles = async (fileIDs: string[]) => {
+    const files = fileIDs.map((id) => uppy.getFile(id));
 
-    const uploadedPhotos = result.successful.map((file) => ({
+    if (!files.length) return;
+
+    const uploadedPhotos = files.map((file) => ({
       user_id: session!.user.id,
       album_id: albumID,
       file_path: file.meta.objectName as string,
     }));
 
-    await insertPhotos(uploadedPhotos);
-  });
+    const base64FetchPromises = uploadedPhotos.map((photo) =>
+      fetchBase64ForPhoto(photo.file_path).then((base64) => ({
+        ...photo,
+        base64,
+      })),
+    );
+
+    const uploadedPhotosWithBase64 = await Promise.all(base64FetchPromises);
+
+    await insertPhotos(uploadedPhotosWithBase64);
+  };
+
+  uppy.addPostProcessor(postProcessFiles);
 
   return (
     <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
@@ -115,7 +128,7 @@ const UploadButton = ({
           showProgressDetails={true}
           waitForThumbnailsBeforeUpload
           proudlyDisplayPoweredByUppy={false}
-          doneButtonHandler={async () => {
+          doneButtonHandler={() => {
             setSheetOpen(false);
             router.refresh();
           }}
