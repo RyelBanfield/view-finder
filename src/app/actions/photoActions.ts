@@ -97,7 +97,7 @@ export const fetchRandomPhotoFromAlbum = async (albumID: string) => {
 
   const { data: photos, error } = await supabase
     .from("photos")
-    .select("id, file_path")
+    .select("id, file_path, base64")
     .eq("album_id", albumID);
 
   if (error) {
@@ -110,7 +110,7 @@ export const fetchRandomPhotoFromAlbum = async (albumID: string) => {
 
   const randomPhoto = photos[Math.floor(Math.random() * photos.length)];
 
-  return randomPhoto.file_path;
+  return randomPhoto;
 };
 
 export const fetchBase64ForPhoto = async (filePath: string) => {
