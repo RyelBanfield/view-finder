@@ -57,6 +57,8 @@ const PhotoList = ({ photos }: { photos: Tables<"photos">[] }) => {
               src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${photo.file_path}`}
               alt={photo.id}
               fill
+              placeholder="blur"
+              blurDataURL={photo.base64}
               className="absolute rounded object-cover object-top"
             />
           </TransitionLink>
