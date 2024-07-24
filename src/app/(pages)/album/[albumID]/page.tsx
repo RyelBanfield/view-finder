@@ -2,7 +2,10 @@ import { notFound } from "next/navigation";
 
 import { fetchAlbumByID } from "@/app/actions/albumActions";
 import { fetchPhotosByAlbumID } from "@/app/actions/photoActions";
-import { fetchCurrentUserProfile } from "@/app/actions/userActions";
+import {
+  fetchCurrentUserProfile,
+  fetchUserByID,
+} from "@/app/actions/userActions";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,32 +21,38 @@ import UploadButton from "./components/UploadButton";
 
 const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
   const album = await fetchAlbumByID(params.albumID);
-
   if (!album) return notFound();
 
-  const user = await fetchCurrentUserProfile();
+  const userAlbumBelongsTo = await fetchUserByID(album.user_id);
+  if (!userAlbumBelongsTo) return notFound();
+
   const photos = await fetchPhotosByAlbumID(album.id);
 
-  const userIsAlbumOwner = user && user.id === album.user_id;
-  const userBelowMaxPhotos = user && user.photo_count < user.max_photos;
+  const currentUser = await fetchCurrentUserProfile();
+
+  const albumBelongsToCurrentUser = userAlbumBelongsTo.id === currentUser?.id;
+
+  const userIsAllowedToUploadMorePhotos =
+    albumBelongsToCurrentUser &&
+    currentUser.photo_count < currentUser.max_photos;
 
   return (
     <div className="flex grow flex-col gap-6 px-6 py-12">
-      {userIsAlbumOwner && (
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/profile">{user.username}</BreadcrumbLink>
-            </BreadcrumbItem>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={`/${userAlbumBelongsTo.username}`}>
+              {userAlbumBelongsTo.username}
+            </BreadcrumbLink>
+          </BreadcrumbItem>
 
-            <BreadcrumbSeparator />
+          <BreadcrumbSeparator />
 
-            <BreadcrumbItem>
-              <BreadcrumbPage>{album.name}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      )}
+          <BreadcrumbItem>
+            <BreadcrumbPage>{album.name}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <div className="flex justify-between">
         <div className="space-y-1">
@@ -56,15 +65,17 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
           </p>
         </div>
 
-        {userIsAlbumOwner && (
+        {albumBelongsToCurrentUser && (
           <DeleteAlbumButton albumID={album.id} photos={photos} />
         )}
       </div>
 
-      {userIsAlbumOwner && userBelowMaxPhotos && (
+      {userIsAllowedToUploadMorePhotos && (
         <UploadButton
           albumID={album.id}
-          numberOfPhotosUserCanUpload={user.max_photos - user.photo_count}
+          numberOfPhotosUserCanUpload={
+            currentUser.max_photos - currentUser.photo_count
+          }
         />
       )}
 

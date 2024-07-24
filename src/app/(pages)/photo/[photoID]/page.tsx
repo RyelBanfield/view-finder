@@ -50,7 +50,7 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
           <Breadcrumb className="px-6">
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/profile">
+                <BreadcrumbLink href={`/${userPhotoBelongsTo.username}`}>
                   {userPhotoBelongsTo.username}
                 </BreadcrumbLink>
               </BreadcrumbItem>
