@@ -17,6 +17,7 @@ import {
 
 import DeleteAlbumButton from "./components/DeleteAlbumButton";
 import PhotoList from "./components/PhotoList";
+import ShareAlbumButton from "./components/ShareAlbumButton";
 import UploadButton from "./components/UploadButton";
 
 const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
@@ -38,37 +39,39 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
 
   return (
     <div className="flex grow flex-col gap-6 px-6 py-12">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href={`/${userAlbumBelongsTo.username}`}>
-              {userAlbumBelongsTo.username}
-            </BreadcrumbLink>
-          </BreadcrumbItem>
+      <div className="flex items-center justify-between">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/${userAlbumBelongsTo.username}`}>
+                {userAlbumBelongsTo.username}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
 
-          <BreadcrumbSeparator />
+            <BreadcrumbSeparator />
 
-          <BreadcrumbItem>
-            <BreadcrumbPage>{album.name}</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+            <BreadcrumbItem>
+              <BreadcrumbPage>
+                <h2>{album.name}</h2>
+              </BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
 
-      <div className="flex justify-between">
-        <div className="space-y-1">
-          <h2 className="text-xl font-bold leading-none tracking-tighter">
-            {album.name}
-          </h2>
+        <div className="space-x-1">
+          <ShareAlbumButton
+            baseURL={process.env.NEXT_PUBLIC_BASE_URL as string}
+          />
 
-          <p className="text-sm leading-none tracking-tighter text-muted-foreground">
-            {new Date(album.created_at).toDateString().slice(4)}
-          </p>
+          {albumBelongsToCurrentUser && (
+            <DeleteAlbumButton albumID={album.id} photos={photos} />
+          )}
         </div>
-
-        {albumBelongsToCurrentUser && (
-          <DeleteAlbumButton albumID={album.id} photos={photos} />
-        )}
       </div>
+
+      <p className="text-xs tracking-tighter text-muted-foreground">
+        {new Date(album.created_at).toDateString().slice(4)}
+      </p>
 
       {userIsAllowedToUploadMorePhotos && (
         <UploadButton
