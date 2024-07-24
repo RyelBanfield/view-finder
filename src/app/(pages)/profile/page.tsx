@@ -49,7 +49,10 @@ const ProfilePage = async () => {
           </p>
         </div>
       ) : (
-        <AlbumList albums={albums} />
+        <AlbumList
+          baseURL={process.env.NEXT_PUBLIC_SUPABASE_URL as string}
+          albums={albums}
+        />
       )}
     </div>
   );

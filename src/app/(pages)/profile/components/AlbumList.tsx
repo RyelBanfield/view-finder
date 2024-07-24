@@ -11,7 +11,13 @@ interface AlbumWithCoverPhoto extends Tables<"albums"> {
   base64?: string;
 }
 
-const AlbumList = ({ albums }: { albums: AlbumWithCoverPhoto[] }) => {
+const AlbumList = ({
+  baseURL,
+  albums,
+}: {
+  baseURL: string;
+  albums: AlbumWithCoverPhoto[];
+}) => {
   const containerVariants = {
     animate: {
       transition: {
@@ -61,7 +67,7 @@ const AlbumList = ({ albums }: { albums: AlbumWithCoverPhoto[] }) => {
             {album.coverPhoto ? (
               <>
                 <Image
-                  src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${album.coverPhoto}`}
+                  src={`${baseURL}/storage/v1/object/public/photos/${album.coverPhoto}`}
                   alt={album.name}
                   fill
                   placeholder="blur"
