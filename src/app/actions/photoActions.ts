@@ -122,3 +122,41 @@ export const fetchBase64ForPhoto = async (filePath: string) => {
 
   return base64;
 };
+
+export const fetchMorePhotosFromAlbum = async (
+  currentPhotoID: string,
+  albumID: string,
+  count: number,
+) => {
+  const supabase = createClient();
+
+  const { data: photos, error } = await supabase
+    .from("photos")
+    .select("*")
+    .eq("album_id", albumID)
+    .neq("id", currentPhotoID);
+
+  if (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    return null;
+  }
+
+  if (photos.length === 0) return null;
+
+  const shuffledPhotos = photos.sort(() => 0.5 - Math.random());
+
+  const selectedPhotos = shuffledPhotos.slice(0, count);
+
+  return selectedPhotos;
+};
+
+export const fetchPublicPhotoURL = async (filePath: string) => {
+  const supabase = createClient();
+
+  const { data } = supabase.storage.from("photos").getPublicUrl(filePath, {
+    download: true,
+  });
+
+  return data.publicUrl;
+};
