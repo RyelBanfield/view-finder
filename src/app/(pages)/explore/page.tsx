@@ -11,7 +11,7 @@ const Explore = async () => {
   return (
     <div className="flex grow items-center justify-center">
       <p className="text-sm text-muted-foreground">
-        We&apos;re working on this page.
+        We&apos;re working on the explore feature.
       </p>
     </div>
   );
