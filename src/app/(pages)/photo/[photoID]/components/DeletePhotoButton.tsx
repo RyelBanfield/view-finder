@@ -1,5 +1,7 @@
 "use client";
 
+import { TrashIcon } from "lucide-react";
+
 import { deletePhotoAndRedirectToAlbum } from "@/app/actions/photoActions";
 import {
   AlertDialog,
@@ -30,8 +32,8 @@ const DeletePhotoButton = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button size={"sm"} variant={"outline"} className="w-24 text-xs">
-          Delete Photo
+        <Button size={"icon"} variant={"ghost"} className="">
+          <TrashIcon className="size-4" />
         </Button>
       </AlertDialogTrigger>
 
