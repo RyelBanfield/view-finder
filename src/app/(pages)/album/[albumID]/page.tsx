@@ -83,7 +83,7 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
       )}
 
       {!photos || photos.length === 0 ? (
-        <div className="grid grow place-items-center">
+        <div className="flex grow items-center justify-center">
           <p className="text-xs tracking-tight text-muted-foreground">
             Upload and share your photos.
           </p>
