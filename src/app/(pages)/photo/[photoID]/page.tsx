@@ -3,10 +3,11 @@ import { notFound } from "next/navigation";
 
 import { fetchAlbumByID } from "@/app/actions/albumActions";
 import {
+  fetchMorePhotosFromAlbum,
   fetchPhotoByID,
-  fetchPhotosByAlbumID,
 } from "@/app/actions/photoActions";
-import { fetchCurrentUserProfile } from "@/app/actions/userActions";
+import { fetchUserAuth, fetchUserByID } from "@/app/actions/userActions";
+import TransitionLink from "@/components/TransitionLink";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,51 +16,43 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 
 import DeletePhotoButton from "./components/DeletePhotoButton";
+import DownloadPhotoButton from "./components/DownloadPhotoButton";
+import MorePhotosGrid from "./components/MorePhotosGrid";
+import SharePhotoButton from "./components/SharePhotoButton";
 
 const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
-  const [photo, user] = await Promise.all([
-    fetchPhotoByID(params.photoID),
-    fetchCurrentUserProfile(),
-  ]);
-
+  const photo = await fetchPhotoByID(params.photoID);
   if (!photo) return notFound();
 
-  const album = await fetchAlbumByID(photo.album_id);
+  const userPhotoBelongsTo = await fetchUserByID(photo.user_id);
+  if (!userPhotoBelongsTo) return notFound();
 
+  const album = await fetchAlbumByID(photo.album_id);
   if (!album) return notFound();
 
-  const getThreeRandomPhotos = async () => {
-    const photosFromAlbum = await fetchPhotosByAlbumID(album.id);
+  const morePhotosFromThisAlbum = await fetchMorePhotosFromAlbum(
+    photo.id,
+    album.id,
+    4,
+  );
 
-    if (!photosFromAlbum || photosFromAlbum.length <= 1) return null;
-
-    const photosWithoutCurrentPhoto = photosFromAlbum.filter(
-      (photoFromAlbum) => photoFromAlbum.id !== photo.id,
-    );
-
-    if (photosWithoutCurrentPhoto.length === 0) return null;
-
-    const shuffledPhotos = photosWithoutCurrentPhoto.sort(
-      () => 0.5 - Math.random(),
-    );
-
-    const selectedPhotos = shuffledPhotos.slice(0, 3);
-
-    return selectedPhotos;
-  };
-
-  const morePhotosFromThisAlbum = await getThreeRandomPhotos();
+  const currentUser = await fetchUserAuth();
+  const doesPhotoBelongToCurrentUser =
+    userPhotoBelongsTo.id === currentUser?.id;
 
   return (
     <>
       <div className="flex grow flex-col gap-6 py-12">
-        {user && (
+        {userPhotoBelongsTo && (
           <Breadcrumb className="px-6">
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/profile">{user.username}</BreadcrumbLink>
+                <BreadcrumbLink href="/profile">
+                  {userPhotoBelongsTo.username}
+                </BreadcrumbLink>
               </BreadcrumbItem>
 
               <BreadcrumbSeparator />
@@ -90,7 +83,7 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
             </p>
           </div>
 
-          {user && user.id === album.user_id && (
+          {doesPhotoBelongToCurrentUser && (
             <DeletePhotoButton
               photoID={photo.id}
               albumID={album.id}
@@ -106,29 +99,48 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
           blurDataURL={photo.base64}
           width={1080}
           height={1080}
+          priority
         />
 
-        <div className="flex flex-col gap-6 px-6">
-          <p className="text-sm leading-none tracking-tighter text-muted-foreground">
-            More from this album
+        <div className="flex justify-end gap-1 px-6">
+          <DownloadPhotoButton filePath={photo.file_path} />
+
+          <SharePhotoButton
+            baseURL={process.env.NEXT_PUBLIC_BASE_URL as string}
+          />
+        </div>
+
+        {morePhotosFromThisAlbum && (
+          <div className="flex flex-col gap-6 px-6">
+            <p className="leading-none tracking-tighter text-muted-foreground">
+              More from this album
+            </p>
+
+            <MorePhotosGrid photos={morePhotosFromThisAlbum} />
+          </div>
+        )}
+
+        <div className="flex flex-col items-center gap-6 px-6 py-12">
+          <p className="text-center text-sm leading-none tracking-tighter text-muted-foreground">
+            Looking for more content like this?
           </p>
 
-          {morePhotosFromThisAlbum && (
-            <div className="grid grid-cols-3 gap-4">
-              {morePhotosFromThisAlbum.map((photo) => (
-                <div key={photo.id} className="relative aspect-square">
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/${photo.file_path}`}
-                    alt=""
-                    placeholder="blur"
-                    blurDataURL={photo.base64}
-                    fill
-                    className="rounded object-cover object-top"
-                  />
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="space-x-2">
+            <Button size={"sm"} asChild>
+              <TransitionLink href="/explore" className="w-28 text-xs">
+                Explore
+              </TransitionLink>
+            </Button>
+
+            <Button size={"sm"} asChild>
+              <TransitionLink
+                href={`/${userPhotoBelongsTo.username}`}
+                className="w-28 text-xs"
+              >
+                {userPhotoBelongsTo.first_name}&apos;s Profile
+              </TransitionLink>
+            </Button>
+          </div>
         </div>
       </div>
     </>
