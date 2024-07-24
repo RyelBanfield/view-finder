@@ -89,7 +89,10 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
           </p>
         </div>
       ) : (
-        <PhotoList photos={photos} />
+        <PhotoList
+          baseURL={process.env.NEXT_PUBLIC_BASE_URL as string}
+          photos={photos}
+        />
       )}
     </div>
   );

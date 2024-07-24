@@ -6,7 +6,13 @@ import Image from "next/image";
 import TransitionLink from "@/components/TransitionLink";
 import { Tables } from "@/lib/database.types";
 
-const PhotoList = ({ photos }: { photos: Tables<"photos">[] }) => {
+const PhotoList = ({
+  baseURL,
+  photos,
+}: {
+  baseURL: string;
+  photos: Tables<"photos">[];
+}) => {
   const containerVariants = {
     animate: {
       transition: {
@@ -54,7 +60,7 @@ const PhotoList = ({ photos }: { photos: Tables<"photos">[] }) => {
         >
           <TransitionLink href={`/photo/${photo.id}`}>
             <Image
-              src={`http://127.0.0.1:54321/storage/v1/object/public/photos/${photo.file_path}`}
+              src={`${baseURL}/storage/v1/object/public/photos/${photo.file_path}`}
               alt={photo.id}
               fill
               placeholder="blur"
