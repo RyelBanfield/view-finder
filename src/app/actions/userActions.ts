@@ -117,3 +117,21 @@ export const fetchUserByUsername = async (username: string) => {
 
   return data;
 };
+
+export const fetchUserByID = async (userID: string) => {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("id", userID)
+    .single();
+
+  if (error) {
+    // eslint-disable-next-line no-console
+    console.error(error.message);
+    return null;
+  }
+
+  return data;
+};
