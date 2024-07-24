@@ -43,7 +43,7 @@ const ProfilePage = async () => {
       <CreateAlbumForm />
 
       {!albums || albums.length === 0 ? (
-        <div className="grid grow place-items-center">
+        <div className="flex grow items-center justify-center">
           <p className="text-xs tracking-tight text-muted-foreground">
             Create your first album and share your photos.
           </p>
