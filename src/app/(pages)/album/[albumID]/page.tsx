@@ -6,14 +6,8 @@ import {
   fetchCurrentUserProfile,
   fetchUserByID,
 } from "@/app/actions/userActions";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import TransitionLink from "@/components/TransitionLink";
+import { Button } from "@/components/ui/button";
 
 import DeleteAlbumButton from "./components/DeleteAlbumButton";
 import PhotoList from "./components/PhotoList";
@@ -38,27 +32,34 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
     currentUser.photo_count < currentUser.max_photos;
 
   return (
-    <div className="flex grow flex-col gap-6 px-6 py-12">
-      <div className="flex items-center justify-between">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/${userAlbumBelongsTo.username}`}>
-                {userAlbumBelongsTo.username}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
+    <div className="flex grow flex-col gap-16 px-6 py-16">
+      <div className="flex flex-col items-center justify-between gap-4 px-6">
+        <div className="flex gap-4">
+          <TransitionLink
+            href={`/${userAlbumBelongsTo.username}`}
+            className="text-sm tracking-tighter text-muted-foreground hover:text-primary md:text-sm"
+          >
+            {userAlbumBelongsTo.first_name} {userAlbumBelongsTo.last_name}
+          </TransitionLink>
 
-            <BreadcrumbSeparator />
+          <TransitionLink
+            href={`/album/${album.id}`}
+            className="text-sm tracking-tighter text-muted-foreground hover:text-primary md:text-sm"
+          >
+            {album.name}
+          </TransitionLink>
+        </div>
 
-            <BreadcrumbItem>
-              <BreadcrumbPage>
-                <h2>{album.name}</h2>
-              </BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <div className="flex gap-4">
+          {userIsAllowedToUploadMorePhotos && (
+            <UploadButton
+              albumID={album.id}
+              numberOfPhotosUserCanUpload={
+                currentUser.max_photos - currentUser.photo_count
+              }
+            />
+          )}
 
-        <div className="space-x-1">
           <ShareAlbumButton
             baseURL={process.env.NEXT_PUBLIC_BASE_URL as string}
           />
@@ -69,19 +70,6 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
         </div>
       </div>
 
-      <p className="text-xs tracking-tighter text-muted-foreground">
-        {new Date(album.created_at).toDateString().slice(4)}
-      </p>
-
-      {userIsAllowedToUploadMorePhotos && (
-        <UploadButton
-          albumID={album.id}
-          numberOfPhotosUserCanUpload={
-            currentUser.max_photos - currentUser.photo_count
-          }
-        />
-      )}
-
       {!photos || photos.length === 0 ? (
         <div className="flex grow items-center justify-center">
           <p className="text-xs tracking-tight text-muted-foreground">
@@ -89,10 +77,35 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
           </p>
         </div>
       ) : (
-        <PhotoList
-          baseURL={process.env.NEXT_PUBLIC_SUPABASE_URL as string}
-          photos={photos}
-        />
+        <>
+          <PhotoList
+            baseURL={process.env.NEXT_PUBLIC_SUPABASE_URL as string}
+            photos={photos}
+          />
+
+          <div className="flex flex-col items-center gap-8 px-6">
+            <p className="text-center text-sm tracking-tighter text-muted-foreground">
+              Looking for more content like this?
+            </p>
+
+            <div className="space-x-4">
+              <Button size={"sm"} asChild>
+                <TransitionLink href="/explore" className="w-28 text-xs">
+                  Explore
+                </TransitionLink>
+              </Button>
+
+              <Button size={"sm"} asChild>
+                <TransitionLink
+                  href={`/${userAlbumBelongsTo.username}`}
+                  className="w-28 text-xs"
+                >
+                  {userAlbumBelongsTo.first_name}&apos;s Profile
+                </TransitionLink>
+              </Button>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
