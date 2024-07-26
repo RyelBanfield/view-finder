@@ -160,3 +160,21 @@ export const fetchPublicPhotoURL = async (filePath: string) => {
 
   return data.publicUrl;
 };
+
+export const incrementPhotoDownloads = async (
+  photoID: string,
+  currentDownloads: number,
+) => {
+  const supabase = createClient();
+
+  const { error: updateDownloadsError } = await supabase
+    .from("photos")
+    .update({ downloads: currentDownloads + 1 })
+    .eq("id", photoID);
+
+  if (updateDownloadsError) {
+    // eslint-disable-next-line no-console
+    console.error(updateDownloadsError.message);
+    throw new Error(updateDownloadsError.message);
+  }
+};
