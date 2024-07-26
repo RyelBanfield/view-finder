@@ -68,6 +68,7 @@ export type Database = {
           album_id: string
           base64: string
           created_at: string
+          downloads: number
           file_path: string
           id: string
           user_id: string
@@ -76,6 +77,7 @@ export type Database = {
           album_id: string
           base64: string
           created_at?: string
+          downloads?: number
           file_path: string
           id?: string
           user_id?: string
@@ -84,6 +86,7 @@ export type Database = {
           album_id?: string
           base64?: string
           created_at?: string
+          downloads?: number
           file_path?: string
           id?: string
           user_id?: string
