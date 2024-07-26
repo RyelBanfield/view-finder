@@ -2,20 +2,18 @@
 
 import { Share2Icon } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 
 const ShareAlbumButton = ({ baseURL }: { baseURL: string }) => {
-  const { toast } = useToast();
   const pathname = usePathname();
 
   const handleShare = async () => {
     await navigator.clipboard.writeText(`${baseURL.slice(0, -1)}${pathname}`);
 
-    toast({
-      title: "Link copied",
-      description: "Share this album with your friends!",
+    toast("Link to album copied", {
+      description: "You can go paste it somewhere!",
     });
   };
 
