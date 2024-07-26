@@ -1,4 +1,3 @@
-import { ImageIcon } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -9,14 +8,6 @@ import {
 } from "@/app/actions/photoActions";
 import { fetchUserAuth, fetchUserByID } from "@/app/actions/userActions";
 import TransitionLink from "@/components/TransitionLink";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 
 import DeletePhotoButton from "./components/DeletePhotoButton";
@@ -45,72 +36,56 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
     userPhotoBelongsTo.id === currentUser?.id;
 
   return (
-    <div className="flex grow flex-col gap-6 py-12">
-      <div className="flex items-center justify-between px-6">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/${userPhotoBelongsTo.username}`}>
-                {userPhotoBelongsTo.username}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
+    <div className="flex grow flex-col gap-16 pb-16">
+      <div className="flex flex-col gap-8">
+        <Image
+          src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/${photo.file_path}`}
+          alt=""
+          placeholder="blur"
+          blurDataURL={photo.base64}
+          width={1080}
+          height={1080}
+          priority
+        />
 
-            <BreadcrumbSeparator />
+        <div className="flex flex-col items-center justify-between gap-4 px-6">
+          <div className="flex gap-4">
+            <TransitionLink
+              href={`/${userPhotoBelongsTo.username}`}
+              className="text-sm tracking-tighter text-muted-foreground hover:text-primary md:text-sm"
+            >
+              {userPhotoBelongsTo.first_name} {userPhotoBelongsTo.last_name}
+            </TransitionLink>
 
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/album/${album.id}`}>
-                {album.name}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
+            <TransitionLink
+              href={`/album/${album.id}`}
+              className="text-sm tracking-tighter text-muted-foreground hover:text-primary md:text-sm"
+            >
+              {album.name}
+            </TransitionLink>
+          </div>
 
-            <BreadcrumbSeparator />
-
-            <BreadcrumbItem>
-              <BreadcrumbPage>
-                <ImageIcon className="size-4" />
-              </BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-
-        <div className="space-x-1">
-          <SharePhotoButton
-            baseURL={process.env.NEXT_PUBLIC_BASE_URL as string}
-          />
-
-          {doesPhotoBelongToCurrentUser && (
-            <DeletePhotoButton
-              photoID={photo.id}
-              albumID={album.id}
-              filePath={photo.file_path}
+          <div className="flex gap-4">
+            <SharePhotoButton
+              baseURL={process.env.NEXT_PUBLIC_BASE_URL as string}
             />
-          )}
+
+            <DownloadPhotoButton photo={photo} />
+
+            {doesPhotoBelongToCurrentUser && (
+              <DeletePhotoButton
+                photoID={photo.id}
+                albumID={album.id}
+                filePath={photo.file_path}
+              />
+            )}
+          </div>
         </div>
       </div>
 
-      <div className="flex justify-between px-6">
-        <p className="text-xs tracking-tighter text-muted-foreground">
-          {new Date(album.created_at).toDateString().slice(4)}
-        </p>
-      </div>
-
-      <Image
-        src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/${photo.file_path}`}
-        alt=""
-        placeholder="blur"
-        blurDataURL={photo.base64}
-        width={1080}
-        height={1080}
-        priority
-      />
-
-      <div className="flex justify-end px-6">
-        <DownloadPhotoButton filePath={photo.file_path} />
-      </div>
-
       {morePhotosFromThisAlbum && (
-        <div className="flex flex-col gap-6 px-6">
-          <p className="leading-none tracking-tighter text-muted-foreground">
+        <div className="flex flex-col gap-8 px-6">
+          <p className="text-center text-sm tracking-tighter text-muted-foreground">
             More from this album
           </p>
 
@@ -118,12 +93,12 @@ const PhotoPage = async ({ params }: { params: { photoID: string } }) => {
         </div>
       )}
 
-      <div className="flex flex-col items-center gap-6 px-6 py-12">
-        <p className="text-center text-sm leading-none tracking-tighter text-muted-foreground">
+      <div className="flex flex-col items-center gap-8 px-6">
+        <p className="text-center text-sm tracking-tighter text-muted-foreground">
           Looking for more content like this?
         </p>
 
-        <div className="space-x-2">
+        <div className="space-x-4">
           <Button size={"sm"} asChild>
             <TransitionLink href="/explore" className="w-28 text-xs">
               Explore
