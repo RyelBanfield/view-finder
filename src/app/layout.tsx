@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
+import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,6 +28,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         <Footer />
 
         <Toaster />
+        <Sonner />
       </body>
     </html>
   );
