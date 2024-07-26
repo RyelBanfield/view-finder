@@ -61,15 +61,16 @@ const AlbumList = ({
               duration: 0.25,
             },
           }}
-          className="relative aspect-square rounded shadow-2xl"
+          className="relative aspect-square overflow-hidden rounded shadow-2xl"
         >
-          <TransitionLink href={`album/${album.id}`}>
+          <TransitionLink href={`album/${album.id}`} className="">
             {album.coverPhoto ? (
               <>
                 <Image
                   src={`${baseURL}/storage/v1/object/public/photos/${album.coverPhoto}`}
                   alt={album.name}
-                  fill
+                  width={250}
+                  height={250}
                   placeholder="blur"
                   blurDataURL={album.base64}
                   className="absolute rounded object-cover object-top"
