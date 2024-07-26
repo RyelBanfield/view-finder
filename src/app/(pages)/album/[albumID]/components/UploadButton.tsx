@@ -8,6 +8,7 @@ import Compressor from "@uppy/compressor";
 import Uppy from "@uppy/core";
 import { Dashboard } from "@uppy/react";
 import Tus from "@uppy/tus";
+import { UploadIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -108,8 +109,8 @@ const UploadButton = ({
   return (
     <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
       <SheetTrigger asChild>
-        <Button size={"sm"} className="w-full text-xs">
-          Upload Photos
+        <Button size={"icon"} variant={"ghost"}>
+          <UploadIcon className="size-4" />
         </Button>
       </SheetTrigger>
 
