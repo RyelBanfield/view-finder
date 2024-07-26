@@ -2,17 +2,22 @@
 
 import { DownloadIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast as sonnerToast } from "sonner";
 
-import { fetchPublicPhotoURL } from "@/app/actions/photoActions";
+import {
+  fetchPublicPhotoURL,
+  incrementPhotoDownloads,
+} from "@/app/actions/photoActions";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { Tables } from "@/lib/database.types";
 
-const DownloadPhotoButton = ({ filePath }: { filePath: string }) => {
+const DownloadPhotoButton = ({ photo }: { photo: Tables<"photos"> }) => {
   const router = useRouter();
   const { toast } = useToast();
 
   const handleDownload = async () => {
-    const publicPhotoURL = await fetchPublicPhotoURL(filePath);
+    const publicPhotoURL = await fetchPublicPhotoURL(photo.file_path);
 
     if (!publicPhotoURL) {
       toast({
@@ -26,10 +31,11 @@ const DownloadPhotoButton = ({ filePath }: { filePath: string }) => {
 
     router.push(publicPhotoURL);
 
-    toast({
-      title: "Photo downloaded",
-      description: "Check your downloads folder.",
+    sonnerToast("Photo downloaded", {
+      description: "Check your downloads folder!",
     });
+
+    await incrementPhotoDownloads(photo.id, photo.downloads);
   };
 
   return (
