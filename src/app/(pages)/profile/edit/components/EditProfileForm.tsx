@@ -4,8 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { updateUsername } from "@/app/actions/userActions";
+import { updateUser } from "@/app/actions/userActions";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -42,6 +43,7 @@ const formSchema = z.object({
     .regex(/^\S*$/, "Username must not contain spaces.")
     .transform((val) => val.toLowerCase()),
   email: z.string().email(),
+  showFullName: z.boolean().default(false),
 });
 
 const EditProfileForm = ({ userProfile }: { userProfile: Tables<"users"> }) => {
@@ -52,15 +54,17 @@ const EditProfileForm = ({ userProfile }: { userProfile: Tables<"users"> }) => {
       last_name: userProfile.last_name || "",
       username: userProfile.username || "",
       email: userProfile.email,
+      showFullName: userProfile.show_full_name || false,
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await updateUsername(
+    await updateUser(
       userProfile.id,
       values.first_name,
       values.last_name,
       values.username,
+      values.showFullName,
     );
   };
 
@@ -124,6 +128,35 @@ const EditProfileForm = ({ userProfile }: { userProfile: Tables<"users"> }) => {
               <FormDescription className="text-xs">
                 Your email is permanent for now.
               </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="showFullName"
+          render={({ field }) => (
+            <FormItem className="mx-auto w-full max-w-md py-6">
+              <FormControl>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="showFullNameCheck"
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    className="rounded"
+                  />
+
+                  <div className="grid gap-2">
+                    <label
+                      htmlFor="showFullNameCheck"
+                      className="text-xs peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Display full name publicly.
+                    </label>
+                  </div>
+                </div>
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
