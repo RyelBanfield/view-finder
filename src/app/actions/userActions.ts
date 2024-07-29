@@ -21,11 +21,12 @@ export const loginWithEmail = async (email: string) => {
   redirect("/login/email-submitted");
 };
 
-export const updateUsername = async (
+export const updateUser = async (
   id: string,
   first_name: string,
   last_name: string,
   username: string,
+  showFullName: boolean,
 ) => {
   const supabase = createClient();
 
@@ -35,6 +36,7 @@ export const updateUsername = async (
       first_name,
       last_name,
       username,
+      show_full_name: showFullName,
     })
     .eq("id", id);
 
