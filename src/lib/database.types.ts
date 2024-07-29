@@ -116,6 +116,7 @@ export type Database = {
           id: string
           last_name: string | null
           max_photos: number
+          show_full_name: boolean
           username: string | null
         }
         Insert: {
@@ -125,6 +126,7 @@ export type Database = {
           id?: string
           last_name?: string | null
           max_photos?: number
+          show_full_name?: boolean
           username?: string | null
         }
         Update: {
@@ -134,6 +136,7 @@ export type Database = {
           id?: string
           last_name?: string | null
           max_photos?: number
+          show_full_name?: boolean
           username?: string | null
         }
         Relationships: [
