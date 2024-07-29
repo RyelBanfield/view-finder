@@ -22,16 +22,24 @@ const ProfilePage = async () => {
 
   return (
     <div className="flex grow flex-col gap-6 px-6 py-12">
-      <div className="flex justify-between">
-        <div className="space-y-1">
-          <h2 className="text-xl font-bold leading-none tracking-tighter">
-            {userProfile.first_name} {userProfile.last_name}
-          </h2>
+      <div className="flex items-center justify-between">
+        {userProfile.show_full_name && (
+          <div className="space-y-1">
+            <h2 className="text-xl font-bold leading-none tracking-tighter">
+              {userProfile.first_name} {userProfile.last_name}
+            </h2>
 
-          <p className="text-sm leading-none tracking-tighter text-muted-foreground">
+            <p className="text-sm leading-none tracking-tighter text-muted-foreground">
+              {userProfile.username}
+            </p>
+          </div>
+        )}
+
+        {!userProfile.show_full_name && (
+          <h2 className="text-xl font-bold leading-none tracking-tighter">
             {userProfile.username}
-          </p>
-        </div>
+          </h2>
+        )}
 
         <Button asChild size={"sm"} variant={"outline"} className="w-24">
           <TransitionLink href="/profile/edit" className="text-xs">
