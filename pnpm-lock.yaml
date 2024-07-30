@@ -54,29 +54,29 @@ importers:
         specifier: ^2.45.0
         version: 2.45.0
       '@uppy/compressor':
-        specifier: ^2.0.0
-        version: 2.0.0(@uppy/core@4.0.1)
+        specifier: ^2.0.1
+        version: 2.0.1(@uppy/core@4.1.0)
       '@uppy/core':
-        specifier: ^4.0.1
-        version: 4.0.1
+        specifier: ^4.1.0
+        version: 4.1.0
       '@uppy/dashboard':
-        specifier: ^4.0.1
-        version: 4.0.1(@uppy/core@4.0.1)
+        specifier: ^4.0.2
+        version: 4.0.2(@uppy/core@4.1.0)
       '@uppy/drag-drop':
         specifier: ^4.0.1
-        version: 4.0.1(@uppy/core@4.0.1)
+        version: 4.0.1(@uppy/core@4.1.0)
       '@uppy/file-input':
         specifier: ^4.0.0
-        version: 4.0.0(@uppy/core@4.0.1)
+        version: 4.0.0(@uppy/core@4.1.0)
       '@uppy/progress-bar':
         specifier: ^4.0.0
-        version: 4.0.0(@uppy/core@4.0.1)
+        version: 4.0.0(@uppy/core@4.1.0)
       '@uppy/react':
         specifier: ^4.0.1
-        version: 4.0.1(@uppy/core@4.0.1)(@uppy/dashboard@4.0.1(@uppy/core@4.0.1))(@uppy/drag-drop@4.0.1(@uppy/core@4.0.1))(@uppy/file-input@4.0.0(@uppy/core@4.0.1))(@uppy/progress-bar@4.0.0(@uppy/core@4.0.1))(@uppy/status-bar@4.0.0(@uppy/core@4.0.1))(react@18.3.1)
+        version: 4.0.1(@uppy/core@4.1.0)(@uppy/dashboard@4.0.2(@uppy/core@4.1.0))(@uppy/drag-drop@4.0.1(@uppy/core@4.1.0))(@uppy/file-input@4.0.0(@uppy/core@4.1.0))(@uppy/progress-bar@4.0.0(@uppy/core@4.1.0))(@uppy/status-bar@4.0.1(@uppy/core@4.1.0))(react@18.3.1)
       '@uppy/tus':
         specifier: ^4.0.0
-        version: 4.0.0(@uppy/core@4.0.1)
+        version: 4.0.0(@uppy/core@4.1.0)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -920,8 +920,8 @@ packages:
   '@types/uuid@10.0.0':
     resolution: {integrity: sha512-7gqG38EyHgyP1S+7+xomFtL+ZNHcKv6DwNaCZmJmo1vgMugyF3TCnXVg4t1uk89mLNwnLtnY3TpOpCOyp1/xHQ==}
 
-  '@types/ws@8.5.11':
-    resolution: {integrity: sha512-4+q7P5h3SpJxaBft0Dzpbr6lmMaqh0Jr2tbhJZ/luAwvD7ohSCniYkwz/pLxuT2h0EOa6QADgJj1Ko+TzRfZ+w==}
+  '@types/ws@8.5.12':
+    resolution: {integrity: sha512-3tPRkv1EtkDpzlgyKyI8pGsGZAGPEaXeu0DOj5DI25Ja91bdAYddYHbADRYVrZMRbfW+1l5YwXVDKohDJNQxkQ==}
 
   '@typescript-eslint/parser@7.2.0':
     resolution: {integrity: sha512-5FKsVcHTk6TafQKQbuIVkXq58Fnbkd2wDL4LB7AURN7RUOu1utVP+G8+6u3ZhEroW3DF6hyo3ZEXxgKgp4KeCg==}
@@ -962,18 +962,18 @@ packages:
     peerDependencies:
       '@uppy/core': ^4.0.0
 
-  '@uppy/compressor@2.0.0':
-    resolution: {integrity: sha512-FBjOLZUBNLirQV2jqGlDO4nHwv06LMLFMfxQjrdOLhidBT/dut/znRN43rTQgdjtS955FjuiBDFczjgvOTeqIA==}
+  '@uppy/compressor@2.0.1':
+    resolution: {integrity: sha512-UOpeigToa06LpwwPvLxIEMFmrt8g80N828OFhWxC9ZDJRKx0GiqKyh8smmQiRF09SkrXtuj2gA74rUESrrJKLA==}
     peerDependencies:
-      '@uppy/core': ^4.0.0
+      '@uppy/core': ^4.1.0
 
-  '@uppy/core@4.0.1':
-    resolution: {integrity: sha512-qrWyjvGGrYWJKIrCwLiPrQPl1Pq+TWk+qA3sattxHm1qhqTUjeogkY1HK6wUOq9+kTJe9Fhxfk/mRmcNC5aJkA==}
+  '@uppy/core@4.1.0':
+    resolution: {integrity: sha512-c8oZ8+DPrbD4HOztr9ht3w+fe5KjXOSXyUWCXzVphpuk5dfuBlZw+nPPqNtk5hMx9W/3K44Xm38of0i0fsEamw==}
 
-  '@uppy/dashboard@4.0.1':
-    resolution: {integrity: sha512-VODcGB6LnuA+GgN1tq48oqts1EcMRSuh4jy2MuytVJk3x1yvsbtE9L6ROX3AAs9r0WTnMYqqhjRk4oocFyenEQ==}
+  '@uppy/dashboard@4.0.2':
+    resolution: {integrity: sha512-C1C07wfoOeoo1uMSIVvYRIt+envIs6efqi4EqUSdD93alvd3n4cIC5j7dKEto1rtiQ41V2yCzIKTIKd2CS/8og==}
     peerDependencies:
-      '@uppy/core': ^4.0.1
+      '@uppy/core': ^4.1.0
 
   '@uppy/drag-drop@4.0.1':
     resolution: {integrity: sha512-YIi//ox0fRmYRlynQ8TcqnxnHzAwvrAxaZcCCXepmzQzpYZH0HbXkjHl6Vht3k+skQvGihX+bjUuu0yB/VZW6w==}
@@ -1022,13 +1022,13 @@ packages:
       '@uppy/status-bar':
         optional: true
 
-  '@uppy/status-bar@4.0.0':
-    resolution: {integrity: sha512-r5b83zsuH1A9Gdx3MCS0EE5k+/K9AYP4JNO0EBSe956gGm76JOfvkNtedIe4Vv49lZVEB4QztzC1bbkHg5TOdw==}
+  '@uppy/status-bar@4.0.1':
+    resolution: {integrity: sha512-EMnEWMAK4Itvt/zjq2c8zqEL3AgbPPv7vcGBfLiURYH0Nspf1VRtRu5nll4c1psn8Zlxg+pEnWbbPwC7wNOAOA==}
     peerDependencies:
-      '@uppy/core': ^4.0.0
+      '@uppy/core': ^4.1.0
 
-  '@uppy/store-default@4.0.0':
-    resolution: {integrity: sha512-iUB2C7+6NkXoCh8xp06pyn1xeMtQgRuX9F2ahhrXDwNsD6mwKa5wgsJSnnlmXLD6fKVkfne55dLMalJ1pSIr2Q==}
+  '@uppy/store-default@4.1.0':
+    resolution: {integrity: sha512-z5VSc4PNXpAtrrUPg5hdKJO5Ul7u4ZYLyK+tYzvEgzgR4nLVZmpGzj/d4N90jXpUqEibWKXvevODEB5VlTLHzg==}
 
   '@uppy/thumbnail-generator@4.0.0':
     resolution: {integrity: sha512-nwgRO/LHLzUqzyB1TDl6g8LNmqtkswXpvRNcPij0gOrPTTWjGY6ULv+ywXYiF5baWF2aGS+K62jJSUGBWonx0w==}
@@ -1040,8 +1040,8 @@ packages:
     peerDependencies:
       '@uppy/core': ^4.0.0
 
-  '@uppy/utils@6.0.0':
-    resolution: {integrity: sha512-24mvEYlt189setvd0z8l3LJRxiq+W8UAZ3lCHRP1Qzq6rSdd/cVaTiIgV+0ZvNnZMmiEKeKdEcfFG3VeGvE3dg==}
+  '@uppy/utils@6.0.1':
+    resolution: {integrity: sha512-GrqzRYe7MQPdA1QieLaD+J7PvvK/An/HJGm365b6piDNw3JjpUjghBOGpPjoSLGDbSbDh+HP2Nj9Jx3fvMyvDQ==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -1135,8 +1135,8 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
-  axe-core@4.9.1:
-    resolution: {integrity: sha512-QbUdXJVTpvUTHU7871ppZkdOLBeGUKBQWHkHrvN2V9IQWGMt61zf3B45BtzjxEJzYuj0JBjBZP/hmYS/R9pmAw==}
+  axe-core@4.10.0:
+    resolution: {integrity: sha512-Mr2ZakwQ7XUAjp7pAwQWRhhK8mQQ6JAaNWSjmjxil0R8BPioMtQsTLOolGYkji1rcL++3dCqZA3zWqpT+9Ew6g==}
     engines: {node: '>=4'}
 
   axobject-query@3.1.1:
@@ -1181,8 +1181,8 @@ packages:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
 
-  caniuse-lite@1.0.30001643:
-    resolution: {integrity: sha512-ERgWGNleEilSrHM6iUz/zJNSQTP8Mr21wDWpdgvRwcTXGAq6jMtOUPP4dqFPTdKqZ2wKTdtB+uucZ3MRpAUSmg==}
+  caniuse-lite@1.0.30001644:
+    resolution: {integrity: sha512-YGvlOZB4QhZuiis+ETS0VXR+MExbFf4fZYYeMTEE0aTQd/RdIjkTyZjLrbYVKnHzppDvnOhritRVv+i7Go6mHw==}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -2662,8 +2662,8 @@ packages:
   which-boxed-primitive@1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==}
 
-  which-builtin-type@1.1.3:
-    resolution: {integrity: sha512-YmjsSMDBYsM1CaFiayOVT06+KJeXf0o5M/CAd4o1lTadFAtacTUM49zoYxr/oroopFDfhvN6iEcBxUyc3gvKmw==}
+  which-builtin-type@1.1.4:
+    resolution: {integrity: sha512-bppkmBSsHFmIMSl8BO9TbsyzsvGjVoppt8xUiGzwiu/bhDCGxnpOKCxgqj6GuyHE0mINMDecBFPlOm2hzY084w==}
     engines: {node: '>= 0.4'}
 
   which-collection@1.0.2:
@@ -3360,7 +3360,7 @@ snapshots:
     dependencies:
       '@supabase/node-fetch': 2.6.15
       '@types/phoenix': 1.6.5
-      '@types/ws': 8.5.11
+      '@types/ws': 8.5.12
       ws: 8.18.0
     transitivePeerDependencies:
       - bufferutil
@@ -3421,7 +3421,7 @@ snapshots:
 
   '@types/uuid@10.0.0': {}
 
-  '@types/ws@8.5.11':
+  '@types/ws@8.5.12':
     dependencies:
       '@types/node': 22.0.0
 
@@ -3467,42 +3467,42 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@uppy/companion-client@4.0.0(@uppy/core@4.0.1)':
+  '@uppy/companion-client@4.0.0(@uppy/core@4.1.0)':
     dependencies:
-      '@uppy/core': 4.0.1
-      '@uppy/utils': 6.0.0
+      '@uppy/core': 4.1.0
+      '@uppy/utils': 6.0.1
       namespace-emitter: 2.0.1
       p-retry: 6.2.0
 
-  '@uppy/compressor@2.0.0(@uppy/core@4.0.1)':
+  '@uppy/compressor@2.0.1(@uppy/core@4.1.0)':
     dependencies:
       '@transloadit/prettier-bytes': 0.3.4
-      '@uppy/core': 4.0.1
-      '@uppy/utils': 6.0.0
+      '@uppy/core': 4.1.0
+      '@uppy/utils': 6.0.1
       compressorjs: 1.2.1
       preact: 10.23.1
       promise-queue: 2.2.5
 
-  '@uppy/core@4.0.1':
+  '@uppy/core@4.1.0':
     dependencies:
       '@transloadit/prettier-bytes': 0.3.4
-      '@uppy/store-default': 4.0.0
-      '@uppy/utils': 6.0.0
+      '@uppy/store-default': 4.1.0
+      '@uppy/utils': 6.0.1
       lodash: 4.17.21
       mime-match: 1.0.2
       namespace-emitter: 2.0.1
       nanoid: 5.0.7
       preact: 10.23.1
 
-  '@uppy/dashboard@4.0.1(@uppy/core@4.0.1)':
+  '@uppy/dashboard@4.0.2(@uppy/core@4.1.0)':
     dependencies:
       '@transloadit/prettier-bytes': 0.3.4
-      '@uppy/core': 4.0.1
-      '@uppy/informer': 4.0.0(@uppy/core@4.0.1)
-      '@uppy/provider-views': 4.0.0(@uppy/core@4.0.1)
-      '@uppy/status-bar': 4.0.0(@uppy/core@4.0.1)
-      '@uppy/thumbnail-generator': 4.0.0(@uppy/core@4.0.1)
-      '@uppy/utils': 6.0.0
+      '@uppy/core': 4.1.0
+      '@uppy/informer': 4.0.0(@uppy/core@4.1.0)
+      '@uppy/provider-views': 4.0.0(@uppy/core@4.1.0)
+      '@uppy/status-bar': 4.0.1(@uppy/core@4.1.0)
+      '@uppy/thumbnail-generator': 4.0.0(@uppy/core@4.1.0)
+      '@uppy/utils': 6.0.1
       classnames: 2.5.1
       lodash: 4.17.21
       memoize-one: 6.0.0
@@ -3510,76 +3510,76 @@ snapshots:
       preact: 10.23.1
       shallow-equal: 3.1.0
 
-  '@uppy/drag-drop@4.0.1(@uppy/core@4.0.1)':
+  '@uppy/drag-drop@4.0.1(@uppy/core@4.1.0)':
     dependencies:
-      '@uppy/core': 4.0.1
-      '@uppy/utils': 6.0.0
+      '@uppy/core': 4.1.0
+      '@uppy/utils': 6.0.1
       preact: 10.23.1
 
-  '@uppy/file-input@4.0.0(@uppy/core@4.0.1)':
+  '@uppy/file-input@4.0.0(@uppy/core@4.1.0)':
     dependencies:
-      '@uppy/core': 4.0.1
-      '@uppy/utils': 6.0.0
+      '@uppy/core': 4.1.0
+      '@uppy/utils': 6.0.1
       preact: 10.23.1
 
-  '@uppy/informer@4.0.0(@uppy/core@4.0.1)':
+  '@uppy/informer@4.0.0(@uppy/core@4.1.0)':
     dependencies:
-      '@uppy/core': 4.0.1
-      '@uppy/utils': 6.0.0
+      '@uppy/core': 4.1.0
+      '@uppy/utils': 6.0.1
       preact: 10.23.1
 
-  '@uppy/progress-bar@4.0.0(@uppy/core@4.0.1)':
+  '@uppy/progress-bar@4.0.0(@uppy/core@4.1.0)':
     dependencies:
-      '@uppy/core': 4.0.1
-      '@uppy/utils': 6.0.0
+      '@uppy/core': 4.1.0
+      '@uppy/utils': 6.0.1
       preact: 10.23.1
 
-  '@uppy/provider-views@4.0.0(@uppy/core@4.0.1)':
+  '@uppy/provider-views@4.0.0(@uppy/core@4.1.0)':
     dependencies:
-      '@uppy/core': 4.0.1
-      '@uppy/utils': 6.0.0
+      '@uppy/core': 4.1.0
+      '@uppy/utils': 6.0.1
       classnames: 2.5.1
       nanoid: 5.0.7
       p-queue: 8.0.1
       preact: 10.23.1
 
-  '@uppy/react@4.0.1(@uppy/core@4.0.1)(@uppy/dashboard@4.0.1(@uppy/core@4.0.1))(@uppy/drag-drop@4.0.1(@uppy/core@4.0.1))(@uppy/file-input@4.0.0(@uppy/core@4.0.1))(@uppy/progress-bar@4.0.0(@uppy/core@4.0.1))(@uppy/status-bar@4.0.0(@uppy/core@4.0.1))(react@18.3.1)':
+  '@uppy/react@4.0.1(@uppy/core@4.1.0)(@uppy/dashboard@4.0.2(@uppy/core@4.1.0))(@uppy/drag-drop@4.0.1(@uppy/core@4.1.0))(@uppy/file-input@4.0.0(@uppy/core@4.1.0))(@uppy/progress-bar@4.0.0(@uppy/core@4.1.0))(@uppy/status-bar@4.0.1(@uppy/core@4.1.0))(react@18.3.1)':
     dependencies:
-      '@uppy/core': 4.0.1
-      '@uppy/utils': 6.0.0
+      '@uppy/core': 4.1.0
+      '@uppy/utils': 6.0.1
       react: 18.3.1
       use-sync-external-store: 1.2.2(react@18.3.1)
     optionalDependencies:
-      '@uppy/dashboard': 4.0.1(@uppy/core@4.0.1)
-      '@uppy/drag-drop': 4.0.1(@uppy/core@4.0.1)
-      '@uppy/file-input': 4.0.0(@uppy/core@4.0.1)
-      '@uppy/progress-bar': 4.0.0(@uppy/core@4.0.1)
-      '@uppy/status-bar': 4.0.0(@uppy/core@4.0.1)
+      '@uppy/dashboard': 4.0.2(@uppy/core@4.1.0)
+      '@uppy/drag-drop': 4.0.1(@uppy/core@4.1.0)
+      '@uppy/file-input': 4.0.0(@uppy/core@4.1.0)
+      '@uppy/progress-bar': 4.0.0(@uppy/core@4.1.0)
+      '@uppy/status-bar': 4.0.1(@uppy/core@4.1.0)
 
-  '@uppy/status-bar@4.0.0(@uppy/core@4.0.1)':
+  '@uppy/status-bar@4.0.1(@uppy/core@4.1.0)':
     dependencies:
       '@transloadit/prettier-bytes': 0.3.4
-      '@uppy/core': 4.0.1
-      '@uppy/utils': 6.0.0
+      '@uppy/core': 4.1.0
+      '@uppy/utils': 6.0.1
       classnames: 2.5.1
       preact: 10.23.1
 
-  '@uppy/store-default@4.0.0': {}
+  '@uppy/store-default@4.1.0': {}
 
-  '@uppy/thumbnail-generator@4.0.0(@uppy/core@4.0.1)':
+  '@uppy/thumbnail-generator@4.0.0(@uppy/core@4.1.0)':
     dependencies:
-      '@uppy/core': 4.0.1
-      '@uppy/utils': 6.0.0
+      '@uppy/core': 4.1.0
+      '@uppy/utils': 6.0.1
       exifr: 7.1.3
 
-  '@uppy/tus@4.0.0(@uppy/core@4.0.1)':
+  '@uppy/tus@4.0.0(@uppy/core@4.1.0)':
     dependencies:
-      '@uppy/companion-client': 4.0.0(@uppy/core@4.0.1)
-      '@uppy/core': 4.0.1
-      '@uppy/utils': 6.0.0
+      '@uppy/companion-client': 4.0.0(@uppy/core@4.1.0)
+      '@uppy/core': 4.1.0
+      '@uppy/utils': 6.0.1
       tus-js-client: 4.1.0
 
-  '@uppy/utils@6.0.0':
+  '@uppy/utils@6.0.1':
     dependencies:
       lodash: 4.17.21
       preact: 10.23.1
@@ -3699,7 +3699,7 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.0.0
 
-  axe-core@4.9.1: {}
+  axe-core@4.10.0: {}
 
   axobject-query@3.1.1:
     dependencies:
@@ -3742,7 +3742,7 @@ snapshots:
 
   camelcase-css@2.0.1: {}
 
-  caniuse-lite@1.0.30001643: {}
+  caniuse-lite@1.0.30001644: {}
 
   chalk@4.1.2:
     dependencies:
@@ -4025,7 +4025,7 @@ snapshots:
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       eslint-plugin-jsx-a11y: 6.9.0(eslint@8.57.0)
       eslint-plugin-react: 7.35.0(eslint@8.57.0)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.57.0)
@@ -4049,7 +4049,7 @@ snapshots:
       enhanced-resolve: 5.17.1
       eslint: 8.57.0
       eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.6
       is-core-module: 2.15.0
@@ -4071,7 +4071,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0):
+  eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlastindex: 1.2.5
@@ -4104,7 +4104,7 @@ snapshots:
       array-includes: 3.1.8
       array.prototype.flatmap: 1.3.2
       ast-types-flow: 0.0.8
-      axe-core: 4.9.1
+      axe-core: 4.10.0
       axobject-query: 3.1.1
       damerau-levenshtein: 1.0.8
       emoji-regex: 9.2.2
@@ -4705,7 +4705,7 @@ snapshots:
       '@next/env': 14.2.5
       '@swc/helpers': 0.5.5
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001643
+      caniuse-lite: 1.0.30001644
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.3.1
@@ -4983,7 +4983,7 @@ snapshots:
       es-errors: 1.3.0
       get-intrinsic: 1.2.4
       globalthis: 1.0.4
-      which-builtin-type: 1.1.3
+      which-builtin-type: 1.1.4
 
   regexp.prototype.flags@1.5.2:
     dependencies:
@@ -5395,7 +5395,7 @@ snapshots:
       is-string: 1.0.7
       is-symbol: 1.0.4
 
-  which-builtin-type@1.1.3:
+  which-builtin-type@1.1.4:
     dependencies:
       function.prototype.name: 1.1.6
       has-tostringtag: 1.0.2
