@@ -68,7 +68,7 @@ const UploadButton = ({
 
   uppy.setOptions({
     restrictions: {
-      maxNumberOfFiles: numberOfPhotosUserCanUpload,
+      maxNumberOfFiles: Math.min(numberOfPhotosUserCanUpload, 10),
     },
   });
 
