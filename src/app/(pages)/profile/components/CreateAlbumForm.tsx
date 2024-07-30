@@ -53,7 +53,7 @@ const CreateAlbumForm = () => {
         <Button
           size={"sm"}
           variant={"ghost"}
-          className="flex w-32 justify-evenly text-xs"
+          className="flex w-32 justify-evenly gap-1 text-xs"
         >
           <PlusIcon className="size-3" />
           Create Album

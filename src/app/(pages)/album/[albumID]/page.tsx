@@ -32,30 +32,30 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
     currentUser.photo_count < currentUser.max_photos;
 
   return (
-    <div className="flex grow flex-col gap-16 px-6 py-16">
-      <div className="flex flex-col items-center justify-between gap-4 px-6">
-        <div className="flex gap-4">
-          <TransitionLink
-            href={`/${userAlbumBelongsTo.username}`}
-            className="text-sm tracking-tighter text-muted-foreground hover:text-primary md:text-sm"
-          >
-            {userAlbumBelongsTo.show_full_name && (
-              <>
-                {userAlbumBelongsTo.first_name} {userAlbumBelongsTo.last_name}
-              </>
-            )}
-
-            {!userAlbumBelongsTo.show_full_name && (
-              <>{userAlbumBelongsTo.username}</>
-            )}
-          </TransitionLink>
-
-          <TransitionLink
-            href={`/album/${album.id}`}
-            className="text-sm tracking-tighter text-muted-foreground hover:text-primary md:text-sm"
-          >
+    <div className="flex grow flex-col gap-8 px-6 py-12">
+      <div className="flex flex-col items-center justify-between gap-6">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-center text-3xl font-bold leading-none tracking-tighter">
             {album.name}
-          </TransitionLink>
+          </h1>
+
+          {userAlbumBelongsTo.show_full_name && (
+            <TransitionLink
+              href={`/${userAlbumBelongsTo.username}`}
+              className="text-center leading-none tracking-tighter text-muted-foreground"
+            >
+              {userAlbumBelongsTo.first_name} {userAlbumBelongsTo.last_name}
+            </TransitionLink>
+          )}
+
+          {!userAlbumBelongsTo.show_full_name && (
+            <TransitionLink
+              href={`/${userAlbumBelongsTo.username}`}
+              className="text-center leading-none tracking-tighter text-muted-foreground"
+            >
+              {userAlbumBelongsTo.username}
+            </TransitionLink>
+          )}
         </div>
 
         <div className="flex gap-4">

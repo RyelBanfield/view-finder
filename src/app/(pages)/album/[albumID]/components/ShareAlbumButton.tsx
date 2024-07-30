@@ -18,8 +18,14 @@ const ShareAlbumButton = ({ baseURL }: { baseURL: string }) => {
   };
 
   return (
-    <Button size={"icon"} variant={"ghost"} onClick={handleShare}>
-      <Share2Icon className="size-4" />
+    <Button
+      size={"sm"}
+      variant={"ghost"}
+      onClick={handleShare}
+      className="flex w-32 justify-evenly gap-1 text-xs"
+    >
+      <Share2Icon className="size-3" />
+      Share Album
     </Button>
   );
 };

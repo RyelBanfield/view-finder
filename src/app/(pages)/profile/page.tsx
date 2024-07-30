@@ -46,7 +46,7 @@ const ProfilePage = async () => {
           <Button size={"sm"} variant={"ghost"} asChild className="w-32">
             <TransitionLink
               href="/profile/edit"
-              className="flex justify-evenly text-xs"
+              className="flex justify-evenly gap-1 text-xs"
             >
               <EditIcon className="size-3" />
               Edit Profile
