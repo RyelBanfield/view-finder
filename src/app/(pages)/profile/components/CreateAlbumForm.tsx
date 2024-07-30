@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -49,7 +50,12 @@ const CreateAlbumForm = () => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button size={"sm"} className="text-xs">
+        <Button
+          size={"sm"}
+          variant={"ghost"}
+          className="flex w-32 justify-evenly text-xs"
+        >
+          <PlusIcon className="size-3" />
           Create Album
         </Button>
       </SheetTrigger>

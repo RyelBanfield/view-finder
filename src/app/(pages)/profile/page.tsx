@@ -1,3 +1,4 @@
+import { EditIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 
 import { fetchAlbumsByUserID } from "@/app/actions/albumActions";
@@ -21,34 +22,40 @@ const ProfilePage = async () => {
   const albums = await fetchAlbumsByUserID(userProfile.id);
 
   return (
-    <div className="flex grow flex-col gap-6 px-6 py-12">
-      <div className="flex items-center justify-between">
+    <div className="flex grow flex-col gap-8 px-6 py-12">
+      <div className="flex flex-col items-center justify-between gap-6">
         {userProfile.show_full_name && (
-          <div className="space-y-1">
-            <h2 className="text-xl font-bold leading-none tracking-tighter">
+          <div className="space-y-2">
+            <h2 className="text-center text-3xl font-bold leading-none tracking-tighter">
               {userProfile.first_name} {userProfile.last_name}
             </h2>
 
-            <p className="text-sm leading-none tracking-tighter text-muted-foreground">
+            <p className="text-center leading-none tracking-tighter text-muted-foreground">
               {userProfile.username}
             </p>
           </div>
         )}
 
         {!userProfile.show_full_name && (
-          <h2 className="text-xl font-bold leading-none tracking-tighter">
+          <h2 className="text-center text-3xl font-bold leading-none tracking-tighter">
             {userProfile.username}
           </h2>
         )}
 
-        <Button asChild size={"sm"} variant={"outline"} className="w-24">
-          <TransitionLink href="/profile/edit" className="text-xs">
-            Edit Profile
-          </TransitionLink>
-        </Button>
-      </div>
+        <div className="flex gap-4">
+          <Button size={"sm"} variant={"ghost"} asChild className="w-32">
+            <TransitionLink
+              href="/profile/edit"
+              className="flex justify-evenly text-xs"
+            >
+              <EditIcon className="size-3" />
+              Edit Profile
+            </TransitionLink>
+          </Button>
 
-      <CreateAlbumForm />
+          <CreateAlbumForm />
+        </div>
+      </div>
 
       {!albums || albums.length === 0 ? (
         <div className="flex grow items-center justify-center">

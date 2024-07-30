@@ -39,7 +39,15 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
             href={`/${userAlbumBelongsTo.username}`}
             className="text-sm tracking-tighter text-muted-foreground hover:text-primary md:text-sm"
           >
-            {userAlbumBelongsTo.first_name} {userAlbumBelongsTo.last_name}
+            {userAlbumBelongsTo.show_full_name && (
+              <>
+                {userAlbumBelongsTo.first_name} {userAlbumBelongsTo.last_name}
+              </>
+            )}
+
+            {!userAlbumBelongsTo.show_full_name && (
+              <>{userAlbumBelongsTo.username}</>
+            )}
           </TransitionLink>
 
           <TransitionLink
@@ -98,9 +106,15 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
               <Button size={"sm"} asChild>
                 <TransitionLink
                   href={`/${userAlbumBelongsTo.username}`}
-                  className="w-28 text-xs"
+                  className="min-w-28 text-xs"
                 >
-                  {userAlbumBelongsTo.first_name}&apos;s Profile
+                  {userAlbumBelongsTo.show_full_name && (
+                    <>{userAlbumBelongsTo.first_name}&apos;s Profile</>
+                  )}
+
+                  {!userAlbumBelongsTo.show_full_name && (
+                    <>{userAlbumBelongsTo.username}&apos;s Profile</>
+                  )}
                 </TransitionLink>
               </Button>
             </div>
