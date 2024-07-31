@@ -1,3 +1,4 @@
+// import { HeartIcon } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -8,6 +9,7 @@ import {
 } from "@/app/actions/photoActions";
 import { fetchUserAuth, fetchUserByID } from "@/app/actions/userActions";
 import TransitionLink from "@/components/TransitionLink";
+// import { Button } from "@/components/ui/button";
 import { Tables } from "@/lib/database.types";
 
 import DeletePhotoButton from "./components/DeletePhotoButton";
@@ -63,9 +65,13 @@ const PhotoOptions = ({
 }) => {
   return (
     <div className="flex justify-center gap-4">
-      <SharePhotoButton baseURL={process.env.NEXT_PUBLIC_BASE_URL as string} />
+      {/* <Button size={"icon"} variant={"ghost"} className="gap-1 text-xs">
+        <HeartIcon className="size-3" />9
+      </Button> */}
 
       <DownloadPhotoButton photo={photo} />
+
+      <SharePhotoButton baseURL={process.env.NEXT_PUBLIC_BASE_URL as string} />
 
       {doesPhotoBelongToCurrentUser && (
         <DeletePhotoButton

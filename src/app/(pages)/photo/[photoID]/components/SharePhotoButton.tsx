@@ -18,14 +18,8 @@ const SharePhotoButton = ({ baseURL }: { baseURL: string }) => {
   };
 
   return (
-    <Button
-      size={"sm"}
-      variant={"ghost"}
-      onClick={handleShare}
-      className="flex w-28 justify-evenly gap-1 text-xs"
-    >
+    <Button size={"icon"} variant={"ghost"} onClick={handleShare}>
       <Share2Icon className="size-3" />
-      Share
     </Button>
   );
 };
