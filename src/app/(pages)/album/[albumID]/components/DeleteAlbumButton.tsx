@@ -34,10 +34,10 @@ const DeleteAlbumButton = ({
         <Button
           size={"sm"}
           variant={"ghost"}
-          className="flex w-32 justify-evenly gap-1 text-xs"
+          className="flex w-28 justify-evenly gap-1 text-xs"
         >
           <TrashIcon className="size-3" />
-          Delete Album
+          Delete
         </Button>
       </AlertDialogTrigger>
 

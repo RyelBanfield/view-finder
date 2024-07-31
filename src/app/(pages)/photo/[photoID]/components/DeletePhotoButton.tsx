@@ -32,8 +32,13 @@ const DeletePhotoButton = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button size={"icon"} variant={"ghost"} className="">
-          <TrashIcon className="size-4" />
+        <Button
+          size={"sm"}
+          variant={"ghost"}
+          className="flex w-28 justify-evenly gap-1 text-xs"
+        >
+          <TrashIcon className="size-3" />
+          Delete
         </Button>
       </AlertDialogTrigger>
 

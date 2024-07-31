@@ -7,7 +7,6 @@ import {
   fetchUserByID,
 } from "@/app/actions/userActions";
 import TransitionLink from "@/components/TransitionLink";
-import { Button } from "@/components/ui/button";
 
 import DeleteAlbumButton from "./components/DeleteAlbumButton";
 import PhotoList from "./components/PhotoList";
@@ -32,8 +31,8 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
     currentUser.photo_count < currentUser.max_photos;
 
   return (
-    <div className="flex grow flex-col gap-8 px-6 py-12">
-      <div className="flex flex-col items-center justify-between gap-6">
+    <div className="flex grow flex-col gap-16 px-6 py-12">
+      <div className="space-y-8">
         <div className="flex flex-col gap-2">
           <h1 className="text-center text-3xl font-bold leading-none tracking-tighter">
             {album.name}
@@ -58,7 +57,7 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
           )}
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex justify-center gap-4">
           {userIsAllowedToUploadMorePhotos && (
             <UploadButton
               albumID={album.id}
@@ -85,41 +84,10 @@ const AlbumPage = async ({ params }: { params: { albumID: string } }) => {
           </p>
         </div>
       ) : (
-        <>
-          <PhotoList
-            baseURL={process.env.NEXT_PUBLIC_SUPABASE_URL as string}
-            photos={photos}
-          />
-
-          <div className="flex flex-col items-center gap-8 px-6">
-            <p className="text-center text-sm tracking-tighter text-muted-foreground">
-              Looking for more content like this?
-            </p>
-
-            <div className="space-x-4">
-              <Button size={"sm"} asChild>
-                <TransitionLink href="/explore" className="w-28 text-xs">
-                  Explore
-                </TransitionLink>
-              </Button>
-
-              <Button size={"sm"} asChild>
-                <TransitionLink
-                  href={`/${userAlbumBelongsTo.username}`}
-                  className="min-w-28 text-xs"
-                >
-                  {userAlbumBelongsTo.show_full_name && (
-                    <>{userAlbumBelongsTo.first_name}&apos;s Profile</>
-                  )}
-
-                  {!userAlbumBelongsTo.show_full_name && (
-                    <>{userAlbumBelongsTo.username}&apos;s Profile</>
-                  )}
-                </TransitionLink>
-              </Button>
-            </div>
-          </div>
-        </>
+        <PhotoList
+          baseURL={process.env.NEXT_PUBLIC_SUPABASE_URL as string}
+          photos={photos}
+        />
       )}
     </div>
   );

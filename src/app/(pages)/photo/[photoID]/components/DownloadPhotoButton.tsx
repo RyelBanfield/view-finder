@@ -39,8 +39,14 @@ const DownloadPhotoButton = ({ photo }: { photo: Tables<"photos"> }) => {
   };
 
   return (
-    <Button size={"icon"} variant={"ghost"} onClick={handleDownload}>
-      <DownloadIcon className="size-4" />
+    <Button
+      size={"sm"}
+      variant={"ghost"}
+      onClick={handleDownload}
+      className="flex w-28 justify-evenly gap-1 text-xs"
+    >
+      <DownloadIcon className="size-3" />
+      Download
     </Button>
   );
 };
