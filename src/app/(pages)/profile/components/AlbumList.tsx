@@ -42,7 +42,7 @@ const AlbumList = ({
       variants={containerVariants}
       initial="initial"
       animate="animate"
-      className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4"
+      className="grid w-full max-w-3xl grid-cols-2 gap-4 self-center sm:grid-cols-3"
     >
       {albums.map((album) => (
         <motion.div

@@ -11,11 +11,11 @@ const MorePhotos = ({ photos }: { photos: Tables<"photos">[] | null }) => {
 
   return (
     <div className="flex flex-col gap-8 px-6">
-      <p className="text-center text-sm tracking-tighter text-muted-foreground">
+      <p className="text-center text-sm tracking-tighter text-muted-foreground sm:text-left">
         More from this album
       </p>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid w-full max-w-3xl grid-cols-2 gap-4 self-center">
         {photos.map((photo) => (
           <motion.div
             whileHover={{
