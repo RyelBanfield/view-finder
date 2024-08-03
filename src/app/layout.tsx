@@ -21,9 +21,11 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       <body
         className={`${inter.className} flex min-h-screen flex-col antialiased`}
       >
-        <Navbar />
+        <div className="flex min-h-screen grow flex-col">
+          <Navbar />
 
-        <main className="flex grow flex-col">{children}</main>
+          <main className="flex grow flex-col">{children}</main>
+        </div>
 
         <Footer />
 
