@@ -7,7 +7,7 @@
 
 const Footer = () => {
   return (
-    <footer className="mt-32 p-12">
+    <footer className="p-12">
       {/* <div className="flex items-center justify-between gap-6">
         <TransitionLink href="/" className="flex items-center gap-1">
           <Image src={Logo} alt="View Finder Logo" className="size-4" />
