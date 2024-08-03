@@ -129,16 +129,18 @@ const UploadButton = ({
 
         <br />
 
-        <Dashboard
-          uppy={uppy}
-          showProgressDetails={true}
-          waitForThumbnailsBeforeUpload
-          proudlyDisplayPoweredByUppy={false}
-          doneButtonHandler={() => {
-            setSheetOpen(false);
-            router.refresh();
-          }}
-        />
+        <div className="md:flex md:justify-center">
+          <Dashboard
+            uppy={uppy}
+            showProgressDetails={true}
+            waitForThumbnailsBeforeUpload
+            proudlyDisplayPoweredByUppy={false}
+            doneButtonHandler={() => {
+              setSheetOpen(false);
+              router.refresh();
+            }}
+          />
+        </div>
       </SheetContent>
     </Sheet>
   );
